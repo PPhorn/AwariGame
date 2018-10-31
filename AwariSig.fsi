@@ -50,6 +50,16 @@ val isGameOver : b:board -> bool
 val getMove : b:board -> p:player -> q:string -> pit
 
 /// <summary>
+/// Checks pit opposit of finalPit
+/// </summary>
+/// <param name="b"> A board to check</param>
+/// <param name="i">The indexnumber of the finalPit of the player who just
+/// played his/her turn</param>
+/// <returns>The number of beans in the pit opposite of the finalPit</returns>
+val checkOpp : b:board -> i: pit -> int
+
+
+/// <summary>
 /// Distributing beans counter clockwise, capturing when relevant
 /// </summary>
 /// <param name="b">The present statu of the board</param>
