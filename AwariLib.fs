@@ -16,6 +16,13 @@ let isHome (b: board) (p: player) (i: pit) : bool =
     | 13 when player = Player2 -> true
     | _ -> false
 
+/// Checks whether the game is over. True when over.
+let isGameOver (b: board) : bool =
+    match b with
+    | [|_; _; _; _; _; _; _; 0; 0; 0; 0; 0; 0; _;|] -> true
+    | [|0; 0; 0; 0; 0; 0; _; _; _; _; _; _; _; _;|] -> true
+    | _ -> false
+
 let turn (b : board) (p : player) : board =
   let rec repeat (b: board) (p: player) (n: int) : board =
     printBoard b

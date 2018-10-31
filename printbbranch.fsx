@@ -31,3 +31,19 @@ let isHomePit (b: board) (p: player) (i: pit) : bool =
     | 13 when player = Player2 -> true
     | _ -> false
 printfn "%A" (isHomePit board Player1 13)
+
+let board2 = [|0; 0; 0; 0; 0; 0; 10; 3; 3; 3; 3; 3; 3; 0;|]
+
+let isGameOver (b: board) : bool =
+    match b with
+    | [|_; _; _; _; _; _; _; 0; 0; 0; 0; 0; 0; _;|] -> true
+    | [|0; 0; 0; 0; 0; 0; _; _; _; _; _; _; _; _;|] -> true
+    | _ -> false
+printfn "%A" (isGameOver board2)
+
+
+//let isGameOver (b: board) : bool =
+  //if b.[0..5] = 0 then true
+  //elif b.[7..12] = 0 then true
+  //else false
+//printfn "%A" (isGameOver board)
