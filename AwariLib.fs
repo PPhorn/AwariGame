@@ -1,6 +1,6 @@
-
 /// Prints the board
 let printBoard (b: board) =
+    //System.Console.Clear ()
     for i = 12 downto 7 do
         printf "%4i" b.[i]
     printfn ""
@@ -11,9 +11,9 @@ let printBoard (b: board) =
 
 /// Checks whether pit is player's home
 let isHome (b: board) (p: player) (i: pit) : bool =
-    match p with
-    | Player1 when i = 6 -> true
-    | Player2 when i = 13 -> true
+    match i with
+    | 6 when player = Player1 -> true
+    | 13 when player = Player2 -> true
     | _ -> false
 
 let turn (b : board) (p : player) : board =
