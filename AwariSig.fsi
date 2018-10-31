@@ -7,6 +7,7 @@ type board = int array
 /// A game is played between two players
 type player = Player1 | Player2
 
+(*DOCUMENTATION OF printBoard*)
 /// <summary>
 /// Print the board
 /// </summary>
@@ -24,6 +25,7 @@ type player = Player1 | Player2
 /// </remarks>
 val printBoard : b:board -> unit
 
+(*DOCUMENTATION OF isHome*)
 /// <summary>
 /// Check whether a pit is the player's home
 /// </summary>
@@ -33,6 +35,7 @@ val printBoard : b:board -> unit
 /// <returns>True if either side has no beans</returns>
 val isHome : b:board -> p:player -> i:pit -> bool
 
+(*DOCUMENTATION OF isGameOver*)
 /// <summary>
 /// Check whether the game is over
 /// </summary>
@@ -40,6 +43,7 @@ val isHome : b:board -> p:player -> i:pit -> bool
 /// <returns>True if either side has no beans</returns>
 val isGameOver : b:board -> bool
 
+(*DOCUMENTATION OF getMove*)
 /// <summary>
 /// Get the pit of next move from the user
 /// </summary>
@@ -49,6 +53,7 @@ val isGameOver : b:board -> bool
 /// <returns>The pit the player has chosen</returns>
 val getMove : b:board -> p:player -> q:string -> pit
 
+(*DOCUMENTATION OF checkOpp*)
 /// <summary>
 /// Checks pit opposit of finalPit
 /// </summary>
@@ -58,7 +63,7 @@ val getMove : b:board -> p:player -> q:string -> pit
 /// <returns>The number of beans in the pit opposite of the finalPit</returns>
 val checkOpp : b:board -> i: pit -> int
 
-
+(*DOCUMENTATION OF distribute*)
 /// <summary>
 /// Distributing beans counter clockwise, capturing when relevant
 /// </summary>
@@ -68,6 +73,7 @@ val checkOpp : b:board -> i: pit -> int
 /// <returns>A new board after the beans of pit i has been distributed, and which player's pit the last bean landed in</returns>
 val distribute : b:board -> p:player -> i:pit -> board * player * pit
 
+(*DOCUMENTATION OF turn*)
 /// <summary>
 /// Interact with the user through getMove to perform a possibly repeated turn of a player
 /// </summary>
@@ -76,6 +82,7 @@ val distribute : b:board -> p:player -> i:pit -> board * player * pit
 /// <returns>A new board after the player's turn</returns>
 val turn : b:board -> p:player -> board
 
+(*DOCUMENTATION OF turn*)
 /// <summary>
 /// Play game until one side is empty
 /// </summary>
