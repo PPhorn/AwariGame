@@ -23,6 +23,31 @@ let isGameOver (b: board) : bool =
     | [|0; 0; 0; 0; 0; 0; _; _; _; _; _; _; _; _;|] -> true
     | _ -> false
 
+/// Gets chosen pit from pressed key
+let rec getMove (b:board) (p:player) (q:string) : pit =
+    printfn "Vælg et felt fra 1-6"
+    match System.Console.ReadLine () with
+    | "1" -> match player with
+            | player1 -> 0
+            | player2 -> 7
+    | "2" -> match player with
+            | player1 -> 1
+            | player2 -> 8
+    | "3" -> match player with
+            | player1 -> 2
+            | player2 -> 9
+    | "4" -> match player with
+            | player1 -> 3
+            | player2 -> 10
+    | "5" -> match player with
+            | player1 -> 4
+            | player2 -> 11
+    | "6" -> match player with
+            | player1 -> 5
+            | player2 -> 12
+    | _ -> printfn "Det var ikke et felt. Prøv igen."
+
+
 let turn (b : board) (p : player) : board =
   let rec repeat (b: board) (p: player) (n: int) : board =
     printBoard b
