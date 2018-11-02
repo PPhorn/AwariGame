@@ -30,10 +30,14 @@ let rec getMove (b:board) (p:player) (q:string) : pit =
     let n = int (System.Console.ReadLine ())
     if (1 <= n && n <= 6) then
       match p with
-      | Player1 -> n-1
-      | Player2 -> n+6
+      | Player1 when not (b.[n-1] = 0) -> n-1
+      | Player2 when not (b.[n+6] = 0) -> n+6
+      | _ -> printfn "Dette felt er tomt"
+             getMove b p ""
     else
+      printfn "Dette felt er ikke gyldigt"
       getMove b p ""
+printfn "%A" (getMove board2 Player1 "")
 
 
 let turn (b : board) (p : player) : board =
