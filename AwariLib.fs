@@ -18,34 +18,22 @@ let isHome (b: board) (p: player) (i: pit) : bool =
 
 /// Checks whether the game is over. True when over.
 let isGameOver (b: board) : bool =
-    match b with
-    | [|_; _; _; _; _; _; _; 0; 0; 0; 0; 0; 0; _;|] -> true
-    | [|0; 0; 0; 0; 0; 0; _; _; _; _; _; _; _; _;|] -> true
-    | _ -> false
+  match b with
+  | b when Array.forall (fun b -> (b = 0)) board2.[0..5] -> true
+  | b when Array.forall (fun b -> (b = 0)) board2.[7..12] -> true
+  | b -> false
+printfn "%A" (test2 board2)
 
 /// Gets chosen pit from pressed key
 let rec getMove (b:board) (p:player) (q:string) : pit =
     printfn "Vælg et felt fra 1-6"
-    match System.Console.ReadLine () with
-    | "1" -> match player with
-            | player1 -> 0
-            | player2 -> 7
-    | "2" -> match player with
-            | player1 -> 1
-            | player2 -> 8
-    | "3" -> match player with
-            | player1 -> 2
-            | player2 -> 9
-    | "4" -> match player with
-            | player1 -> 3
-            | player2 -> 10
-    | "5" -> match player with
-            | player1 -> 4
-            | player2 -> 11
-    | "6" -> match player with
-            | player1 -> 5
-            | player2 -> 12
-    | _ -> printfn "Det var ikke et felt. Prøv igen."
+    let n = int (System.Console.ReadLine ())
+    if (1 <= n && n <= 6) then
+      match p with
+      | Player1 -> n-1
+      | Player2 -> n+6
+    else
+      getMove b p ""
 
 
 let turn (b : board) (p : player) : board =

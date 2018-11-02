@@ -44,7 +44,8 @@ let isGameOver (b: board) : bool =
 printfn "%A" (isGameOver board2)
 
 let test2 (b: int array) : bool =
-    Array.forall (fun b -> (b = 0)) board2.[0..5]
+    Array.forall (fun b -> (b = 0)) board2.[0..5].[7..12]
+//    Array.forall (fun b -> (b = 0)) board2.[7..12]
 printfn "%A" (test2 board2)
 
 //let isGameOver (b: board) : bool =
