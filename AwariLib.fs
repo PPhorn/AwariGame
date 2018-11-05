@@ -1,6 +1,13 @@
 module Awari
+
+/// A game is played between two players
 type player = Player1 | Player2
+
+/// A board consisting of pits.
 type board = int array
+
+/// Each player has a set of regular pits and one home pit. A pit holds zero or
+/// more beans
 type pit = int
 
 (*DOCUMENTATION OF printBoard*)
@@ -101,6 +108,16 @@ let finalPitPlayer (i: pit) : player =
   | i when i <= 6 -> Player1
   | i -> Player2
 
+
+
+(*DOCUMENTATION OF turn*)
+/// <summary>
+/// Interact with the user through getMove to perform a possibly repeated turn of a player
+/// </summary>
+/// <param name="b">The present state of the board</param>
+/// <param name="p">The player, whose turn it is</param>
+/// <returns>A new board after the player's turn</returns>
+
 (*
 let turn (b : board) (p : player) : board =
   let rec repeat (b: board) (p: player) (n: int) : board =
@@ -119,6 +136,14 @@ let turn (b : board) (p : player) : board =
       repeat newB p (n + 1)
   repeat b p 0
 *)
+
+(*DOCUMENTATION OF play*)
+/// <summary>
+/// Play game until one side is empty
+/// </summary>
+/// <param name="b">The initial board</param>
+/// <param name="p">The player who starts</param>
+/// <returns>A new board after one player has won</returns>
 
 (*
 let rec play (b : board) (p : player) : board =
