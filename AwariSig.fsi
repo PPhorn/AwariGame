@@ -14,10 +14,14 @@ val isGameOver : b:board -> bool
 
 val getMove : b:board -> p:player -> q:string -> pit
 
-val checkOpp : b:board -> i: pit -> bool
+val checkOpp : b:board -> i:pit -> bool
 
-//val distribute : b:board -> p:player -> i:pit -> board * player * pit
+val finalPitPlayer : i:pit -> player
 
-//val turn : b:board -> p:player -> board
+val terminateGame : b:board -> string
 
-//val play : b:board -> p:player -> board
+val distribute : b:board -> p:player -> i:pit -> board * player * pit
+
+val turn : b:board -> p:player -> board
+
+val play : b:board -> p:player -> board
