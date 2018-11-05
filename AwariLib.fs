@@ -19,8 +19,8 @@ let isHome (b: board) (p: player) (i: pit) : bool =
 /// Checks whether the game is over. True when over.
 let isGameOver (b: board) : bool =
   match b with
-  | b when Array.forall (fun b -> (b = 0)) board2.[0..5] -> true
-  | b when Array.forall (fun b -> (b = 0)) board2.[7..12] -> true
+  | b when Array.forall (fun b -> (b = 0)) b.[0..5] -> true
+  | b when Array.forall (fun b -> (b = 0)) b.[7..12] -> true
   | b -> false
 printfn "%A" (test2 board2)
 
