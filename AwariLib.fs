@@ -28,7 +28,7 @@ type pit = int
 /// </remarks>
 
 let printBoard (b: board) =
-  //System.Console.Clear ()
+  System.Console.Clear ()
   for i = 12 downto 7 do
       printf "%4i" b.[i]
   printfn ""
@@ -75,16 +75,16 @@ let isGameOver (b: board) : bool =
 /// <returns>The indexnumber of the pit the player has chosen</returns>
 
 let rec getMove (b:board) (p:player) (q:string) : pit =
-  printfn "Vælg et felt fra 1-6"
+  printfn "%s Choose a pit between 1-6" q
   let n = int (System.Console.ReadLine ())
   if (1 <= n && n <= 6) then
     match p with
     | Player1 when not (b.[n-1] = 0) -> n-1
     | Player2 when not (b.[n+6] = 0) -> n+6
-    | _ -> printfn "Dette felt er tomt"
-           getMove b p ""
+    | _ -> printfn "This pit is empty. Try again."
+           getMove b p q
   else
-    printfn "Dette felt er ikke gyldigt"
+    printfn "This is not a valid input. Try again."
     getMove b p ""
 
 (*DOCUMENTATION OF checkOpp*)
@@ -173,12 +173,11 @@ let rec distribute (b:board) (p:player) (i:pit) : board * player * pit =
 let turn (b : board) (p : player) : board =
   let rec repeat (b: board) (p: player) (n: int) : board =
     printBoard b
-    printfn "%A 's turn.'" p
     let str =
       if n = 0 then
-        sprintf "Player %A's move? " p
+        sprintf "%A's move. " p
       else
-        "Again? "
+        "Again "
     let i = getMove b p str
     let (newB, finalPitsPlayer, finalPit)= distribute b p i
     if not (isHome b finalPitsPlayer finalPit)
@@ -200,6 +199,7 @@ let turn (b : board) (p : player) : board =
 
 let rec play (b : board) (p : player) : board =
   if isGameOver b then
+    printfn "Game over."
     b
   else
     let newB = turn b p
