@@ -108,6 +108,7 @@ let finalPitPlayer (i: pit) : player =
   | i when i <= 6 -> Player1
   | i -> Player2
 
+
   (*DOCUMENTATION OF terminateGame*)
   /// <summary>
   /// Let the players know if the game is over and who the winner is.
@@ -125,21 +126,32 @@ let terminateGame (b : board) : string =
   else
     "Something is wrong. You should newer see this."
 
-//Ikke rigtig version af distribute! Kl 12.45 mandag.
+(*DOCUMENTATION OF distribute*)
+/// <summary>
+/// Distributing beans counter clockwise, capturing when relevant
+/// </summary>
+/// <param name="b">The present status of the board</param>
+/// <param name="p">The player, whos beans to distribute</param>
+/// <param name="i">The regular pit to distribute</param>
+/// <returns>A new board after the beans of pit i has been distributed, and which player's pit the last bean landed in</returns>
+//val distribute : b:board -> p:player -> i:pit -> board * player * pit
+
 let rec distribute (b:board) (p:player) (i:pit) : board * player * pit =
   let mutable j = i + 1
   ///Let k be the number of pits to distribute
   let mutable k = b.[i]
   while k > 0 do
-    if (j < 14) then
+    if (j <= 13) then
       b.[j] <- (b.[j] + 1)
-    if (j = 14) then
+      k <- k - 1
+    if (j > 13) then
       j <- 0
+    elif k = 0 then
+      j <- j
     else
       j <- j + 1
-    k <- k - 1
   let finalPit = j
-  if (checkOpp b finalPit) && b.[finalPit] = 1 then
+  if (checkOpp b finalPit) && (finalPitPlayer finalPit) = p && b.[finalPit] = 1 then
     let Opps = (b.Length - 2) - finalPit
     match p with
     | Player1 -> b.[6] <- b.[6] + b.[Opps] + b.[finalPit]
@@ -148,6 +160,7 @@ let rec distribute (b:board) (p:player) (i:pit) : board * player * pit =
     b.[Opps] <- 0
   b.[i] <- 0
   (b, (finalPitPlayer finalPit), finalPit)
+
 (*DOCUMENTATION OF turn*)
 /// <summary>
 /// Interact with the user through getMove to perform a possibly repeated turn of a player
@@ -160,7 +173,7 @@ let rec distribute (b:board) (p:player) (i:pit) : board * player * pit =
 let turn (b : board) (p : player) : board =
   let rec repeat (b: board) (p: player) (n: int) : board =
     printBoard b
-    printfn "%A" p
+    printfn "%A 's turn.'" p
     let str =
       if n = 0 then
         sprintf "Player %A's move? " p

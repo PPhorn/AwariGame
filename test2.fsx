@@ -1,5 +1,6 @@
 
-let board2 = [|4; 4; 4; 0; 0; 0; 10; 3; 3; 3; 3; 3; 0; 20;|]
+let board2 = [|0;  4;  4;  0;  0;  0; 10;  2;  3;  3;  4;  0;  2; 20;|]
+let indexnumber = [|0;  1;  2;  3;  4;  5;  6;  7;  8;  9; 10; 11; 12; 13|]
 type player = Player1 | Player2
 type board = int array
 type pit = int
@@ -34,18 +35,17 @@ let rec distribute (b:board) (p:player) (i:pit) : board * player * pit =
   ///Let k be the number of pits to distribute
   let mutable k = b.[i]
   while k > 0 do
-    if (j < 14) then
+    if (j <= 13) then
       b.[j] <- (b.[j] + 1)
-    if (j = 14) then
-      printfn "J <- 0"
+      k <- k - 1
+    if (j > 13) then
       j <- 0
+    elif k = 0 then
+      j <- j
     else
       j <- j + 1
-      printfn "J+1, %A" j
-    k <- k - 1
-    printfn "K-1"
   let finalPit = j
-  if (checkOpp b finalPit) && b.[finalPit] = 1 then
+  if (checkOpp b finalPit) && (finalPitPlayer finalPit) = p && b.[finalPit] = 1 then
     let Opps = (b.Length - 2) - finalPit
     match p with
     | Player1 -> b.[6] <- b.[6] + b.[Opps] + b.[finalPit]
@@ -54,6 +54,3 @@ let rec distribute (b:board) (p:player) (i:pit) : board * player * pit =
     b.[Opps] <- 0
   b.[i] <- 0
   (b, (finalPitPlayer finalPit), finalPit)
-
-
-printfn "%A" (distribute board2 Player2 10 )
