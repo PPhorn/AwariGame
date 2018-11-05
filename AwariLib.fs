@@ -28,14 +28,14 @@ type pit = int
 /// </remarks>
 
 let printBoard (b: board) =
-    //System.Console.Clear ()
-    for i = 12 downto 7 do
-        printf "%4i" b.[i]
-    printfn ""
-    printf "%i %25i\n" b.[13] b.[6]
-    for i = 0 to 5 do
-        printf "%4i" b.[i]
-    printfn ""
+  //System.Console.Clear ()
+  for i = 12 downto 7 do
+      printf "%4i" b.[i]
+  printfn ""
+  printf "%i %25i\n" b.[13] b.[6]
+  for i = 0 to 5 do
+      printf "%4i" b.[i]
+  printfn ""
 
 
 (*DOCUMENTATION OF isHome*)
@@ -48,10 +48,10 @@ let printBoard (b: board) =
 /// <returns>True if either side has no beans</returns>
 
 let isHome (b: board) (p: player) (i: pit) : bool =
-    match i with
-    | 6 when p = Player1 -> true
-    | 13 when p = Player2 -> true
-    | _ -> false
+  match i with
+  | 6 when p = Player1 -> true
+  | 13 when p = Player2 -> true
+  | _ -> false
 
 (*DOCUMENTATION OF isGameOver*)
 /// <summary>
@@ -75,17 +75,17 @@ let isGameOver (b: board) : bool =
 /// <returns>The indexnumber of the pit the player has chosen</returns>
 
 let rec getMove (b:board) (p:player) (q:string) : pit =
-    printfn "Vælg et felt fra 1-6"
-    let n = int (System.Console.ReadLine ())
-    if (1 <= n && n <= 6) then
-      match p with
-      | Player1 when not (b.[n-1] = 0) -> n-1
-      | Player2 when not (b.[n+6] = 0) -> n+6
-      | _ -> printfn "Dette felt er tomt"
-             getMove b p ""
-    else
-      printfn "Dette felt er ikke gyldigt"
-      getMove b p ""
+  printfn "Vælg et felt fra 1-6"
+  let n = int (System.Console.ReadLine ())
+  if (1 <= n && n <= 6) then
+    match p with
+    | Player1 when not (b.[n-1] = 0) -> n-1
+    | Player2 when not (b.[n+6] = 0) -> n+6
+    | _ -> printfn "Dette felt er tomt"
+           getMove b p ""
+  else
+    printfn "Dette felt er ikke gyldigt"
+    getMove b p ""
 
 (*DOCUMENTATION OF checkOpp*)
 /// <summary>
@@ -97,11 +97,11 @@ let rec getMove (b:board) (p:player) (q:string) : pit =
 /// <returns>The number of beans in the pit opposite of the finalPit</returns>
 
 let checkOpp (b:board) (i: pit) : bool =
-    if i = 13 then false
-    elif i = 6 then false
-    else
-      let Opps = (b.Length - 2) - i
-      (b.[Opps] <> 0)
+  if i = 13 then false
+  elif i = 6 then false
+  else
+    let Opps = (b.Length - 2) - i
+    (b.[Opps] <> 0)
 
 let finalPitPlayer (i: pit) : player =
   match i with
@@ -125,7 +125,29 @@ let terminateGame (b : board) : string =
   else
     "Something is wrong. You should newer see this."
 
-
+//Ikke rigtig version af distribute! Kl 12.45 mandag.
+let rec distribute (b:board) (p:player) (i:pit) : board * player * pit =
+  let mutable j = i + 1
+  ///Let k be the number of pits to distribute
+  let mutable k = b.[i]
+  while k > 0 do
+    if (j < 14) then
+      b.[j] <- (b.[j] + 1)
+    if (j = 14) then
+      j <- 0
+    else
+      j <- j + 1
+    k <- k - 1
+  let finalPit = j
+  if (checkOpp b finalPit) && b.[finalPit] = 1 then
+    let Opps = (b.Length - 2) - finalPit
+    match p with
+    | Player1 -> b.[6] <- b.[6] + b.[Opps] + b.[finalPit]
+    | Player2 -> b.[13] <- b.[13] + b.[Opps] + b.[finalPit]
+    b.[finalPit] <- 0
+    b.[Opps] <- 0
+  b.[i] <- 0
+  (b, (finalPitPlayer finalPit), finalPit)
 (*DOCUMENTATION OF turn*)
 /// <summary>
 /// Interact with the user through getMove to perform a possibly repeated turn of a player
@@ -134,10 +156,11 @@ let terminateGame (b : board) : string =
 /// <param name="p">The player, whose turn it is</param>
 /// <returns>A new board after the player's turn</returns>
 
-(*
+
 let turn (b : board) (p : player) : board =
   let rec repeat (b: board) (p: player) (n: int) : board =
     printBoard b
+    printfn "%A" p
     let str =
       if n = 0 then
         sprintf "Player %A's move? " p
@@ -151,7 +174,7 @@ let turn (b : board) (p : player) : board =
     else
       repeat newB p (n + 1)
   repeat b p 0
-*)
+
 
 (*DOCUMENTATION OF play*)
 /// <summary>
@@ -164,7 +187,7 @@ let turn (b : board) (p : player) : board =
 
 let rec play (b : board) (p : player) : board =
   if isGameOver b then
-    terminateGame b
+    b
   else
     let newB = turn b p
     let nextP =
