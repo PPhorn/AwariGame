@@ -44,8 +44,9 @@ let isGameOver (b: board) : bool =
 printfn "%A" (isGameOver board2)
 
 let test2 (b: int array) : bool =
-    Array.forall (fun b -> (b = 0)) board2.[0..5].[7..12]
-//    Array.forall (fun b -> (b = 0)) board2.[7..12]
+  if Array.forall (fun b -> (b = 0)) board2.[0..5]
+  elif Array.forall (fun b -> (b = 0)) board2.[7..12]
+  else false
 printfn "%A" (test2 board2)
 
 //let isGameOver (b: board) : bool =
@@ -56,7 +57,14 @@ printfn "%A" (test2 board2)
 
 let rec getMove1 (b:board) (p:player) (q:string) : pit =
     printfn "Vælg et felt fra 1-6"
-    match player with
+    let n = int System.Console.ReadLine ()
+    if n = 1-6
+    match p with
+    | Player1 -> n-1
+    | Player2 -> n+6
+
+    | n = n-1
+    match p with
     | player1 -> match System.Console.ReadLine () with
                 | "1" ->  0
                 | "2" ->  1
@@ -64,7 +72,7 @@ let rec getMove1 (b:board) (p:player) (q:string) : pit =
                 | "4" ->  3
                 | "5" ->  4
                 | "6" ->  5
-                | _ -> printfn "Det var ikke et felt. Prøv igen."
+                | _ ->
     | player2 -> match System.Console.ReadLine () with
                 | "1" ->  7
                 | "2" ->  8
@@ -75,6 +83,7 @@ let rec getMove1 (b:board) (p:player) (q:string) : pit =
                 | _ -> printfn "Det var ikke et felt. Prøv igen."
 printfn "%A" getMove ()
 
+let n = int System.Console.ReadLine ()
 
 let rec getMove (b:board) (p:player) (q:string) : pit =
     printfn "Vælg et felt fra 1-6"
@@ -98,3 +107,38 @@ let rec getMove (b:board) (p:player) (q:string) : pit =
             | player1 -> 5
             | player2 -> 12
     | _ -> printfn "Det var ikke et felt. Prøv igen."
+
+    let getMove1 (b:board) (q:string) : pit =
+        printfn "Vælg et felt fra 1-6"
+        match System.Console.ReadLine () with
+        | "1" ->  0
+        | "2" ->  1
+        | "3" ->  2
+        | "4" ->  3
+        | "5" ->  4
+        | "6" ->  5
+        | _ -> 0
+    printfn "%A" getMove1 ()
+
+    let rec getMove (b:board) (p:player) (q:string) : pit =
+      printfn "Vælg et felt fra 1-6"
+      match System.Console.ReadLine () with
+      | "1" -> match p with
+               | Player1 -> 0
+               | Player2 -> 7
+      | "2" -> match player with
+               | Player1 -> 1
+               | Player2 -> 8
+      | "3" -> match player with
+               | Player1 -> 2
+               | Player2 -> 9
+      | "4" -> match player with
+               | Player1 -> 3
+               | Player2 -> 10
+      | "5" -> match player with
+               | Player1 -> 4
+               | Player2 -> 11
+      | "6" -> match player with
+               | Player1 -> 5
+               | Player2 -> 12
+      | _ -> 0

@@ -32,7 +32,7 @@ let printBoard (b: board) =
     for i = 12 downto 7 do
         printf "%4i" b.[i]
     printfn ""
-    printf "%i %25i\n" b.[6] b.[13]
+    printf "%i %25i\n" b.[13] b.[6]
     for i = 0 to 5 do
         printf "%4i" b.[i]
     printfn ""
@@ -108,6 +108,22 @@ let finalPitPlayer (i: pit) : player =
   | i when i <= 6 -> Player1
   | i -> Player2
 
+  (*DOCUMENTATION OF terminateGame*)
+  /// <summary>
+  /// Let the players know if the game is over and who the winner is.
+  /// </summary>
+  /// <param name="b">The present state of the board</param>
+  /// <returns>A string with information</returns>
+let terminateGame (b : board) : string =
+  if isGameOver b then
+    System.Console.Clear ()
+    printBoard b
+    match b with
+    | b when b.[6] > b.[13] -> "Game over. The winner is Player 1"
+    | b when b.[6] = b.[13] -> "It's a tie"
+    | _ -> "Game over. The winner is Player 2"
+  else
+    "Something is wrong. You should newer see this."
 
 
 (*DOCUMENTATION OF turn*)
@@ -145,10 +161,10 @@ let turn (b : board) (p : player) : board =
 /// <param name="p">The player who starts</param>
 /// <returns>A new board after one player has won</returns>
 
-(*
+
 let rec play (b : board) (p : player) : board =
   if isGameOver b then
-    b
+    terminateGame b
   else
     let newB = turn b p
     let nextP =
@@ -157,4 +173,3 @@ let rec play (b : board) (p : player) : board =
       else
         Player1
     play newB nextP
-*)
