@@ -18,7 +18,7 @@ val checkOpp : b:board -> i:pit -> bool
 
 val finalPitPlayer : i:pit -> player
 
-val terminateGame : b:board -> string
+//val terminateGame : b:board -> string
 
 val distribute : b:board -> p:player -> i:pit -> board * player * pit
 
