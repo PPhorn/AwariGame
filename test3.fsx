@@ -11,24 +11,17 @@ let isGameOver (b: board) : bool =
 isGameOver board2
 
 let printBoard (b: board) =
-    //System.Console.Clear ()
-    for i = 12 downto 7 do
-        printf "%4i" b.[i]
-    printfn ""
-    printf "%i %25i\n" b.[13] b.[6]
-    for i = 0 to 5 do
-        printf "%4i" b.[i]
-    printfn ""
-//printBoard board2
-
-let terminateGame (b : board) : string =
   if isGameOver b then
-    System.Console.Clear ()
-    printBoard b
     match b with
     | b when b.[6] > b.[13] -> "Game over. The winner is Player 1"
     | b when b.[6] = b.[13] -> "It's a tie"
     | _ -> "Game over. The winner is Player 2"
   else
-    "Spil bare videre"
-printfn "%s"(terminateGame board2)
+    System.Console.Clear ()
+    for i = 12 downto 7 do
+        "%4i" b.[i]
+        ""
+        "%i %25i\n" b.[13] b.[6]
+    for i = 0 to 5 do
+        "%4i" b.[i]
+//printBoard board2

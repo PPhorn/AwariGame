@@ -28,14 +28,20 @@ type pit = int
 /// </remarks>
 
 let printBoard (b: board) =
-  System.Console.Clear ()
-  for i = 12 downto 7 do
-      printf "%4i" b.[i]
-  printfn ""
-  printf "%i %25i\n" b.[13] b.[6]
-  for i = 0 to 5 do
-      printf "%4i" b.[i]
-  printfn ""
+  if isGameOver b then
+    match b with
+    | b when b.[6] > b.[13] -> "Game over. The winner is Player 1"
+    | b when b.[6] = b.[13] -> "It's a tie"
+    | _ -> "Game over. The winner is Player 2"
+  else
+    System.Console.Clear ()
+    for i = 12 downto 7 do
+        printf "%4i" b.[i]
+    printfn ""
+    printf "%i %25i\n" b.[13] b.[6]
+    for i = 0 to 5 do
+        printf "%4i" b.[i]
+    printfn ""
 
 
 (*DOCUMENTATION OF isHome*)
