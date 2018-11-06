@@ -27,7 +27,20 @@ type pit = int
 /// Where player 1 is bottom row and rightmost home
 /// </remarks>
 
+(*DOCUMENTATION OF isGameOver*)
+/// <summary>
+/// Checks whether the game is over
+/// </summary>
+/// <param name="b"> A board to check</param>
+/// <returns>True if either side has no beans</returns>
+let isGameOver (b: board) : bool =
+  match b with
+  | b when Array.forall (fun b -> (b = 0)) b.[0..5] -> true
+  | b when Array.forall (fun b -> (b = 0)) b.[7..12] -> true
+  | b -> false
+
 let printBoard (b: board) =
+<<<<<<< HEAD
   if isGameOver b then
     match b with
     | b when b.[6] > b.[13] -> "Game over. The winner is Player 1"
@@ -42,6 +55,24 @@ let printBoard (b: board) =
     for i = 0 to 5 do
         printf "%4i" b.[i]
     printfn ""
+=======
+  let esc = string (char 0x1B)
+  if isGameOver b then
+    System.Console.Clear ()
+    //printBoard b
+    match b with
+    | b when b.[6] > b.[13] -> System.Console.WriteLine(esc + "[31;1m" + "Game over. The winner is Player 1" + esc + "[0m")
+    //printfn "Game over. The winner is Player 1"
+    | b when b.[6] = b.[13] -> System.Console.WriteLine(esc + "[33;1m" + "Game over. It's a tie" + esc + "[0m")
+    | _ -> System.Console.WriteLine(esc + "[31;1m" + "Game over. The winner is Player 2" + esc + "[0m")
+  for i = 12 downto 7 do
+      printf "%4i" b.[i]
+  printfn ""
+  printf "%i %25i\n" b.[13] b.[6]
+  for i = 0 to 5 do
+      printf "%4i" b.[i]
+  printfn ""
+>>>>>>> 9e36f83ebac12e56bed483cb5587ad90be700d2e
 
 
 (*DOCUMENTATION OF isHome*)
@@ -58,18 +89,6 @@ let isHome (b: board) (p: player) (i: pit) : bool =
   | 6 when p = Player1 -> true
   | 13 when p = Player2 -> true
   | _ -> false
-
-(*DOCUMENTATION OF isGameOver*)
-/// <summary>
-/// Checks whether the game is over
-/// </summary>
-/// <param name="b"> A board to check</param>
-/// <returns>True if either side has no beans</returns>
-let isGameOver (b: board) : bool =
-  match b with
-  | b when Array.forall (fun b -> (b = 0)) b.[0..5] -> true
-  | b when Array.forall (fun b -> (b = 0)) b.[7..12] -> true
-  | b -> false
 
 (*DOCUMENTATION OF getMove*)
 /// <summary>
