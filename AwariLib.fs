@@ -27,18 +27,6 @@ type pit = int
 /// Where player 1 is bottom row and rightmost home
 /// </remarks>
 
-(*DOCUMENTATION OF isGameOver*)
-/// <summary>
-/// Checks whether the game is over
-/// </summary>
-/// <param name="b"> A board to check</param>
-/// <returns>True if either side has no beans</returns>
-let isGameOver (b: board) : bool =
-  match b with
-  | b when Array.forall (fun b -> (b = 0)) b.[0..5] -> true
-  | b when Array.forall (fun b -> (b = 0)) b.[7..12] -> true
-  | b -> false
-
 let printBoard (b: board) =
 <<<<<<< HEAD
   if isGameOver b then
@@ -90,6 +78,18 @@ let isHome (b: board) (p: player) (i: pit) : bool =
   | 13 when p = Player2 -> true
   | _ -> false
 
+(*DOCUMENTATION OF isGameOver*)
+/// <summary>
+/// Checks whether the game is over
+/// </summary>
+/// <param name="b"> A board to check</param>
+/// <returns>True if either side has no beans</returns>
+let isGameOver (b: board) : bool =
+  match b with
+  | b when Array.forall (fun b -> (b = 0)) b.[0..5] -> true
+  | b when Array.forall (fun b -> (b = 0)) b.[7..12] -> true
+  | b -> false
+
 (*DOCUMENTATION OF getMove*)
 /// <summary>
 /// Takes the pressed key as input and finds the pit of next move from the user.
@@ -128,28 +128,19 @@ let checkOpp (b:board) (i: pit) : bool =
     let Opps = (b.Length - 2) - i
     (b.[Opps] <> 0)
 
+(*DOCUMENTATION OF finalPitPlayer*)
+/// <summary>
+/// Checks whether Player1 or Player2 is the player of the final pit.
+/// </summary>
+/// <param name="i">The indexnumber of the finalPit of the player who just
+/// played his/her turn</param>
+/// <returns>Player1 or Player2</returns>
+
 let finalPitPlayer (i: pit) : player =
   match i with
   | i when i <= 6 -> Player1
   | i -> Player2
 
-
-  (*DOCUMENTATION OF terminateGame*)
-  /// <summary>
-  /// Let the players know if the game is over and who the winner is.
-  /// </summary>
-  /// <param name="b">The present state of the board</param>
-  /// <returns>A string with information</returns>
-let terminateGame (b : board) : string =
-  if isGameOver b then
-    System.Console.Clear ()
-    printBoard b
-    match b with
-    | b when b.[6] > b.[13] -> "Game over. The winner is Player 1"
-    | b when b.[6] = b.[13] -> "It's a tie"
-    | _ -> "Game over. The winner is Player 2"
-  else
-    "Something is wrong. You should newer see this."
 
 (*DOCUMENTATION OF distribute*)
 /// <summary>
