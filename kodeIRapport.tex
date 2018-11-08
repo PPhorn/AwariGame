@@ -1,0 +1,51 @@
+\documentclass[a4paper]{report}
+
+% Pakke der specificerer margen størrelse
+\usepackage[margin=2.5cm]{geometry}
+
+% Package for typesetting programs. Listings does not support fsharp, but a
+% little modification goes a long way
+\usepackage{listings}
+\usepackage{color}
+\definecolor{bluekeywords}{rgb}{0.13,0.13,1}
+\definecolor{greencomments}{rgb}{0,0.5,0}
+\definecolor{turqusnumbers}{rgb}{0.17,0.57,0.69}
+\definecolor{redstrings}{rgb}{0.5,0,0}
+\definecolor{gray}{rgb}{0.13,0.13,0.13}
+\lstdefinelanguage{FSharp}
+                {morekeywords={let, new, match, with, rec, open, module,
+                namespace, type, of, member, and, for, in, do, begin, end, fun,
+                function, try, mutable, if, then, else},
+                keywordstyle=\color{bluekeywords},
+                sensitive=false,
+                numbers=left,  % where to put the line-numbers;(none, left, right)
+                numberstyle=\tiny\color{gray},
+                morecomment=[l][\color{greencomments}]{///},
+                morecomment=[l][\color{greencomments}]{//},
+                morecomment=[s][\color{greencomments}]{{(*}{*)}},
+                morestring=[b]",
+                showstringspaces=false,
+                stringstyle=\color{redstrings}
+                }
+
+\title{PoP - Ugeopgave 7}
+\author{Christoffer, Inge og Pernille}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Preface}
+As a part of the Programming and Problem Solving course, we, 
+three Computer Science students at Copenhagen University, build the game Awari.
+
+\section{Awari}
+Awari is an ancient two player game that resembles the beloved Kalaha. The main objective of
+Awari is to capture the most beans. The game continues until one of the two players
+has no beans left, and the winner is the player who captured the most beans.
+
+\lstset{language=FSharp}
+\lstinputlisting{AwariLib.fs}
+
+\end{document}
+
