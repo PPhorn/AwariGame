@@ -1,3 +1,4 @@
+open System
 let board2 = [|0; 0; 0; 0; 0; 0; 11; 3; 3; 3; 3; 3; 3; 10;|]
 type player = Player1 | Player2
 type board = int array
@@ -10,6 +11,9 @@ let isGameOver (b: board) : bool =
   | b -> false
 isGameOver board2
 
+
+Console.ForegroundColor<-ConsoleColor.Cyan
+
 let printBoard (b: board) =
   if isGameOver b then
     match b with
@@ -19,9 +23,9 @@ let printBoard (b: board) =
   else
     System.Console.Clear ()
     for i = 12 downto 7 do
-        "%4i" b.[i]
-        ""
-        "%i %25i\n" b.[13] b.[6]
+      "%4i" b.[i]
+      ""
+      "%i %25i\n" b.[13] b.[6]
     for i = 0 to 5 do
-        "%4i" b.[i]
+      "%4i" b.[i]
 //printBoard board2

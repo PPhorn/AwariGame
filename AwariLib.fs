@@ -40,22 +40,25 @@ let isGameOver (b: board) : bool =
   | b -> false
 
 let printBoard (b: board) =
+  System.Console.Clear ()
+  (*for i = 12 downto 7 do
+      printf "%4i" b.[i]
+  printfn ""
+  printf "%i %25i\n" b.[13] b.[6]
+  for i = 0 to 5 do
+      printf "%4i" b.[i]
+  printfn ""
+  printf "     |"*)
   let esc = string (char 0x1B)
-  if isGameOver b then
-    match b with
-    | b when b.[6] > b.[13] -> System.Console.WriteLine(esc + "[31;1m" + "Game over. The winner is Player 1" + esc + "[0m")
-    //printfn "Game over. The winner is Player 1"
-    | b when b.[6] = b.[13] -> System.Console.WriteLine(esc + "[33;1m" + "Game over. It's a tie" + esc + "[0m")
-    | _ -> System.Console.WriteLine(esc + "[31;1m" + "Game over. The winner is Player 2" + esc + "[0m")
-  else
-    System.Console.Clear ()
-    for i = 12 downto 7 do
-        printf "%4i" b.[i]
-    printfn ""
-    printf "%i %25i\n" b.[13] b.[6]
-    for i = 0 to 5 do
-        printf "%4i" b.[i]
-    printfn ""
+  printf "     |"
+  for i = 12 downto 7 do
+      printf "%2i |" b.[i]
+  printfn ""
+  printf "| %2i |                       | %i |\n" b.[13] b.[6]
+  printf "     |"
+  for i = 0 to 5 do
+      printf "%2i |" b.[i]
+  printfn ""
 
 
 (*DOCUMENTATION OF isHome*)
@@ -72,6 +75,7 @@ let isHome (b: board) (p: player) (i: pit) : bool =
   | 6 when p = Player1 -> true
   | 13 when p = Player2 -> true
   | _ -> false
+
 
 (*DOCUMENTATION OF getMove*)
 /// <summary>
@@ -198,7 +202,14 @@ let turn (b : board) (p : player) : board =
 
 let rec play (b : board) (p : player) : board =
   if isGameOver b then
-    printfn "Game over."
+    let esc = string (char 0x1B)
+    if b.[6] > b.[13] then
+      System.Console.WriteLine(esc + "[31;1m" + "Game over. The winner is Player 1" + esc + "[0m")
+    elif b.[6] = b.[13] then
+      System.Console.WriteLine(esc + "[33;1m" + "Game over. It's a tie" + esc + "[0m")
+    else
+      System.Console.WriteLine(esc + "[31;1m" + "Game over. The winner is Player 2" + esc + "[0m")
+    //printfn "Game over."
     b
   else
     let newB = turn b p
