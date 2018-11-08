@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.9.3)  8 NOV 2018 15:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.9.3)  8 NOV 2018 21:35
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -190,21 +190,21 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 18.
  [1]
-Overfull \hbox (24.76077pt too wide) in paragraph at lines 74--75
+Overfull \hbox (24.76077pt too wide) in paragraph at lines 75--76
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 [2]
-Overfull \hbox (12.76065pt too wide) in paragraph at lines 101--103
+Overfull \hbox (12.76065pt too wide) in paragraph at lines 102--104
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 [][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (312.7637pt too wide) in paragraph at lines 131--132
+Overfull \hbox (312.7637pt too wide) in paragraph at lines 132--133
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
@@ -212,35 +212,35 @@ Overfull \hbox (312.7637pt too wide) in paragraph at lines 131--132
 [][][][][] 
  []
 
-
-Overfull \hbox (48.76102pt too wide) in paragraph at lines 149--150
+[3]
+Overfull \hbox (48.76102pt too wide) in paragraph at lines 150--151
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][] 
  []
 
-[3]
-Overfull \hbox (84.76138pt too wide) in paragraph at lines 161--162
+
+Overfull \hbox (84.76138pt too wide) in paragraph at lines 162--163
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 [][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (132.76187pt too wide) in paragraph at lines 199--200
+Overfull \hbox (132.76187pt too wide) in paragraph at lines 200--201
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 [][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (60.76114pt too wide) in paragraph at lines 201--202
+Overfull \hbox (60.76114pt too wide) in paragraph at lines 202--203
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 [][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (132.76187pt too wide) in paragraph at lines 203--204
+Overfull \hbox (132.76187pt too wide) in paragraph at lines 204--205
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 [][][][][][][][][][][][][][][][][][][] 
@@ -248,11 +248,11 @@ Overfull \hbox (132.76187pt too wide) in paragraph at lines 203--204
 
 [4]) [5] (./kodeIRapport.aux) ) 
 Here is how much of TeX's memory you used:
- 3013 strings out of 492649
- 40039 string characters out of 6129623
- 157772 words of memory out of 5000000
- 6916 multiletter control sequences out of 15000+600000
- 7280 words of font info for 26 fonts, out of 8000000 for 9000
+ 3014 strings out of 492649
+ 40054 string characters out of 6129623
+ 156229 words of memory out of 5000000
+ 6917 multiletter control sequences out of 15000+600000
+ 7587 words of font info for 27 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  30i,6n,40p,199b,1565s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2018/texmf-dist/fonts/type1/
@@ -263,7 +263,7 @@ ic/amsfonts/cm/cmr12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmr17.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmr5.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmsy10.pfb>
-Output written on kodeIRapport.pdf (6 pages, 94482 bytes).
+Output written on kodeIRapport.pdf (6 pages, 94657 bytes).
 PDF statistics:
  51 PDF objects out of 1000 (max. 8388607)
  35 compressed objects within 1 object stream
