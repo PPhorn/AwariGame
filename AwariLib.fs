@@ -26,6 +26,19 @@ type pit = int
 /// </code>
 /// Where player 1 is bottom row and rightmost home
 /// </remarks>
+let printBoard (b: board) =
+  System.Console.Clear ()
+  let esc = string (char 0x1B)
+  printf "     |"
+  for i = 12 downto 7 do
+      printf "%2i |" b.[i]
+  printfn ""
+  printf "| %2i |                       | %i |\n" b.[13] b.[6]
+  printf "     |"
+  for i = 0 to 5 do
+      printf "%2i |" b.[i]
+  printfn ""
+
 
 (*DOCUMENTATION OF isGameOver*)
 /// <summary>
@@ -39,18 +52,6 @@ let isGameOver (b: board) : bool =
   | b when Array.forall (fun b -> (b = 0)) b.[7..12] -> true
   | b -> false
 
-let printBoard (b: board) =
-  System.Console.Clear ()
-  let esc = string (char 0x1B)
-  printf "     |"
-  for i = 12 downto 7 do
-      printf "%2i |" b.[i]
-  printfn ""
-  printf "| %2i |                       | %i |\n" b.[13] b.[6]
-  printf "     |"
-  for i = 0 to 5 do
-      printf "%2i |" b.[i]
-  printfn ""
 
 
 (*DOCUMENTATION OF isHome*)

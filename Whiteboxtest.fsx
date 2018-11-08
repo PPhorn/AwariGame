@@ -23,6 +23,7 @@ let boardtest6 = [|1; 0; 0; 0; 0; 0; 0; 3; 3; 3; 3; 3; 3; 0;|]
 let boardtest7 = [|0; 0; 3; 3; 0; 0; 0; 1; 0; 0; 0; 0; 0; 0;|]
 let boardtest8 = [|3; 3; 3; 0; 0; 0; 0; 3; 3; 3; 3; 3; 3; 0;|]
 let boardtest9 = [|0; 0; 3; 3; 3; 3; 0; 3; 0; 0; 0; 0; 0; 0;|]
+let boardtest10 = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 0;|]
 
 
 (*TESTING AF printBoard  INCOMPLETE! *)
@@ -89,7 +90,7 @@ printfn "Branch 2: if i > 6 Exp. output: Player2 - %b\n" (finalPitPlayer 7 = Pla
 
 (*TESTING AF turnr*)
 printfn "Whitebox testing of the function turn:"
-printfn "Branch 1: Player1 Exp. output: Player1 - %b" (turn boardtest1 Player1 = [|0; 0; 0; 0; 0; 0; 10; 3; 3; 3; 3; 3; 3; 0;|])
+printfn "Branch 1: Player1 Exp. output: Player1 - %b" (turn boardtest10 Player1 = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 0;|])
 
 
 // let turn (b : board) (p : player) : board =
