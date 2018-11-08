@@ -41,14 +41,6 @@ let isGameOver (b: board) : bool =
 
 let printBoard (b: board) =
   System.Console.Clear ()
-  (*for i = 12 downto 7 do
-      printf "%4i" b.[i]
-  printfn ""
-  printf "%i %25i\n" b.[13] b.[6]
-  for i = 0 to 5 do
-      printf "%4i" b.[i]
-  printfn ""
-  printf "     |"*)
   let esc = string (char 0x1B)
   printf "     |"
   for i = 12 downto 7 do
