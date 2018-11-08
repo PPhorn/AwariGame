@@ -17,6 +17,12 @@ printfn "Unit: play\n"
 let boardtest1 = [|0; 0; 0; 0; 0; 0; 10; 3; 3; 3; 3; 3; 3; 0;|]
 let boardtest2 = [|1; 0; 0; 0; 0; 0; 10; 3; 3; 3; 3; 3; 3; 0;|]
 let boardtest3 = [|0; 0; 3; 3; 3; 3; 10; 0; 0; 0; 0; 0; 0; 0;|]
+let boardtest4 = [|0; 0; 3; 3; 3; 3; 0; 0; 0; 0; 0; 0; 0; 0;|]
+let boardtest5 = [|0; 0; 0; 0; 0; 0; 0; 3; 3; 3; 3; 3; 3; 0;|]
+let boardtest6 = [|1; 0; 0; 0; 0; 0; 0; 3; 3; 3; 3; 3; 3; 0;|]
+let boardtest7 = [|0; 0; 3; 3; 0; 0; 0; 1; 0; 0; 0; 0; 0; 0;|]
+let boardtest8 = [|3; 3; 3; 0; 0; 0; 0; 3; 3; 3; 3; 3; 3; 0;|]
+let boardtest9 = [|0; 0; 3; 3; 3; 3; 0; 3; 0; 0; 0; 0; 0; 0;|]
 
 
 (*TESTING AF printBoard  INCOMPLETE! *)
@@ -41,12 +47,33 @@ printfn "Branch 1: b.[0..5] have beans .   Exp. output: false - %b" (isGameOver 
 printfn "Branch 2: b.[7..12] have 0 beans. Exp. output: true  - %b" (isGameOver boardtest3 = true)
 printfn "Branch 2: b.[7..12] have beans.   Exp. output: false - %b\n" (isGameOver boardtest2 = false)
 
+(*TESTING AF distribute*)
+printfn "\nWhitebox testing of the function distribute:\n"
+printfn "Test of Player1's move reaching into Player2's field:"
+printfn "Branch 1.0:  b = [|0; 0; 3; 3; 3; 3; 0; 0; 0; 0; 0; 0; 0; 0|] p = Player1 i = 5."
+printfn "Exp. output: b = [|3; 3; 3; 3; 3; 0; 1; 4; 4; 3; 3; 3; 3; 0|], finalPlayer = Player2, finalPit = 8 - %b\n" (distribute boardtest4 Player1 5 = ([|0; 0; 3; 3; 3; 0; 1; 1; 1; 0; 0; 0; 0; 0|], Player2, 8))
+printfn "Test of Player2's move reaching into Player1's field:"
+printfn "Branch 2.1:  b = [|0; 0; 0; 0; 0; 0; 0; 3; 3; 3; 3; 3; 3; 0|] p = Player2 i = 12."
+printfn "Exp. output: b = [|1; 1; 0; 0; 0; 0; 0; 3; 3; 3; 3; 3; 0; 1|], finalPlayer = Player1, finalPit = 1 - %b\n" (distribute boardtest5 Player2 12 = ([|1; 1; 0; 0; 0; 0; 0; 3; 3; 3; 3; 3; 0; 1|], Player1, 1))
+printfn "Test of beans in chosen pit = 0:"
+printfn "Branch 2.2:  b = [|1; 0; 0; 0; 0; 0; 0; 3; 3; 3; 3; 3; 3; 0|] p = Player1 i = 2."
+printfn "Exp. output: b = [|1; 0; 0; 0; 0; 0; 0; 3; 3; 3; 3; 3; 3; 0|], finalPlayer = Player1, finalPit = 3 - %b\n" (distribute boardtest6 Player1 2 = ([|1; 0; 0; 0; 0; 0; 0; 3; 3; 3; 3; 3; 3; 0|], Player1, 3))
+printfn "Test of k = 1 e.g one runthrough of While-loop:"
+printfn "Branch 2.3:  b = [|0; 0; 3; 3; 0; 0; 0; 1; 0; 0; 0; 0; 0; 0|] p = Player2 i = 7."
+printfn "Exp. output: b = [|0; 0; 3; 3; 0; 0; 0; 0; 1; 0; 0; 0; 0; 0|], finalPlayer = Player2, finalPit = 8 - %b\n" (distribute boardtest7 Player2 7 = ([|0; 0; 3; 3; 0; 0; 0; 0; 1; 0; 0; 0; 0; 0|], Player2, 8))
+printfn "Test of Player1 capturing Player2's opposite beans:"
+printfn "Branch 3.0:  b = [|3; 3; 3; 0; 0; 0; 0; 3; 3; 3; 3; 3; 3; 0|] p = Player1 i = 0."
+printfn "Exp. output: b = [|0; 4; 4; 0; 0; 0; 4; 3; 3; 0; 3; 3; 3; 0|], finalPlayer = Player1, finalPit = 3 - %b\n" (distribute boardtest8 Player1 0 = ([|0; 4; 4; 0; 0; 0; 4; 3; 3; 0; 3; 3; 3; 0|], Player1, 3))
+printfn "Test of Player2 capturing Player1's opposite beans:"
+printfn "Branch 3.0:  b = [|0; 0; 3; 3; 3; 3; 0; 3; 0; 0; 0; 0; 0; 0|] p = Player2 i = 7."
+printfn "Exp. output: b = [|0; 0; 0; 3; 3; 3; 0; 0; 1; 1; 0; 0; 0; 4|], finalPlayer = Player2, finalPit = 10 - %b" (distribute boardtest9 Player2 7 = ([|0; 0; 0; 3; 3; 3; 0; 0; 1; 1; 0; 0; 0; 4|], Player2, 10))
+
 (*TESTING AF getMove*)
 printfn "Whitebox testing of the function getMove:"
 printfn "Branch 1: if 1<n<6. Player1  Exp. output: 0         - %b" (getMove boardtest2 Player1 "1" = 0)
 printfn "Branch 1: if 1<n<6. Player2  Exp. output: 7         - %b" (getMove boardtest2 Player2 "1" = 7)
-printfn "Branch 1: if 1<n<6 is empty  Exp. output: Try again - %b" (getMove boardtest2 Player1 "2" = "This pit is empty. Try again.")
-printfn "Branch 2: else n>6           Exp. output: Try again - %b\n" (getMove boardtest2 Player1 "9" = "This is not a valid input. Try again.")
+//printfn "Branch 1: if 1<n<6 is empty  Exp. output: Try again - %b" (getMove boardtest2 Player1 "2" = "This pit is empty. Try again.")
+//printfn "Branch 2: else n>6           Exp. output: Try again - %b\n" (getMove boardtest2 Player1 "9" = "This is not a valid input. Try again.")
 
 (*TESTING AF checkOpp*)
 printfn "Whitebox testing of the function checkOpp:"
