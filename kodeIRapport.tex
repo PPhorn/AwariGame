@@ -36,16 +36,26 @@
 \maketitle
 
 \section{Preface}
-As a part of the Programming and Problem Solving course, we, 
+As a part of the Programming and Problem Solving course, we,
 three Computer Science students at Copenhagen University, build the game Awari.
 
 \section{Awari}
-Awari is an ancient two player game that resembles the beloved Kalaha. The main objective of
-Awari is to capture the most beans. The game continues until one of the two players
-has no beans left, and the winner is the player who captured the most beans.
+Awari is an ancient two player game that resembles the beloved Kalaha. The main
+objective of Awari is to capture the most beans. The game consists of a board
+with 6 pits and one home pit for each player. Each of the 6 x 2 pits consists of
+3 beans. The players must in turn take the amount of beans from a pit on his or
+her side of the board and distribute them in the following pits. The game
+continues until one of the two players has no beans left, and the winner is the
+player who captured the most beans in his or her homepit.
+
+\section{Problem description}
+We have implemented the Awari using the functional programming language F\#. We
+were given two functions at the beginning, a turn and a play function, and the
+then we have made several funktions to be able to play the game. We were 
+To be able to play the game it is necessary for the programme to get a chosen pit.
+
 
 \lstset{language=FSharp}
 \lstinputlisting{AwariLib.fs}
 
 \end{document}
-
