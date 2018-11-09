@@ -80,13 +80,13 @@ let isHome (b: board) (p: player) (i: pit) : bool =
 /// <returns>The indexnumber of the pit the player has chosen</returns>
 
 let rec getMove (b:board) (p:player) (q:string) : pit =
-  printfn "%sChoose a pit between 1-6" q
+  printfn "%s Choose a pit between 1-6" q
   let r =
       try
           let n = System.Console.ReadLine();
           int32(n)
       with
-          | :? System.FormatException -> printfn "Invalid input! Try again."
+          | :? System.FormatException -> printfn "Invalid input!"
                                          0
   if (1 <= r && r <= 6) then
     match p with
@@ -95,6 +95,7 @@ let rec getMove (b:board) (p:player) (q:string) : pit =
     | _ -> printfn "This pit is empty. Try again."
            getMove b p q
   else
+    printfn "Try again."
     getMove b p ""
 
 (*DOCUMENTATION OF checkOpp*)

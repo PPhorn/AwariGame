@@ -1,3 +1,8 @@
+type board = int array
+type pit = int
+type player = Player1 | Player2
+let board = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 20;|]
+
 let rec getMove (b:board) (p:player) (q:string) : pit =
   printfn "%s Choose a pit between 1-6" q
   let n = int (System.Console.ReadLine ())
