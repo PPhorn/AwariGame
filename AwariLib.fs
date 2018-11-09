@@ -86,16 +86,18 @@ let rec getMove (b:board) (p:player) (q:string) : pit =
           let n = System.Console.ReadLine();
           int32(n)
       with
-          | :? System.FormatException -> printfn "Invalid input! Try again."
+          | :? System.FormatException -> printfn "Invalid input!"
                                          0
-  if (1 <= r && r <= 6) then
-    match p with
-    | Player1 when not (b.[r-1] = 0) -> r-1
-    | Player2 when not (b.[r+6] = 0) -> r+6
-    | _ -> printfn "This pit is empty. Try again."
-           getMove b p q
-  else
-    getMove b p ""
+  match p with
+  | Player1 when (1 <= r && r <= 6) -> r-1
+  | Player2 when (1 <= r && r <= 6) -> r+6
+  | Player1 when r = 0 -> getMove b Player1 "Try again. "
+  | Player2 when r = 0 -> getMove b Player1 "Try again. "
+  | Player1 when r > 6 -> getMove b Player1 "Try again. "
+  | Player2 when r > 6 -> getMove b Player1 "Try again. "
+  | Player1 when (b.[r-1] = 0) -> getMove b Player1 "This pit is empty. Try again. "
+  | Player2 when (b.[r+6] = 0) -> getMove b Player2 "This pit is empty. Try again. "
+  | _ -> getMove b p q
 
 (*DOCUMENTATION OF checkOpp*)
 /// <summary>
