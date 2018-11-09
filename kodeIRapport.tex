@@ -4,10 +4,9 @@
 \usepackage{hyperref}
 \usepackage{graphicx}
 \graphicspath{{figures/}{anotherFigureDirectory/}}
-
-% Package for typesetting programs. Listings does not support fsharp, but a
-% little modification goes a long way
+\graphicspath{ {./images/} }
 \usepackage{listings}
+\usepackage{wrapfig}
 \usepackage{color}
 \definecolor{bluekeywords}{rgb}{0.13,0.13,1}
 \definecolor{greencomments}{rgb}{0,0.5,0}
@@ -62,19 +61,14 @@ file with type indication for several minor functions. To be able to play the
 game we have created functions to print the board, to distribute the beans, to
 check for game over etc. All the functions will be elaborated in this rapport.
 
-\section*{Problem analysis and design}
-\subsection*{flow}
-We designed our programme starting by focusing on the board. The board is the center of the game and thus the main part of takes the board as input.
-
-\ref{fig:gameflow}).
 \begin{figure}
 \centering
 \begin{tikzpicture} [node distance = 1.5 cm, auto]
 		\node [cloud] (start) {The board is printed};
-        \node [cloud, below of=start] (choise) {A Player choses a pit};
+        \node [cloud, below of=start] (choise) {A player chooses a pit};
         \node [cloud, below of=choise] (distribute) {Beans are distributed};
         \node [cloud, below of=distribute] (eval) {The result is evaluated};
-		\node [cloud, right of=eval, node distance = 4 cm]
+		\node [cloud, right of=eval, node distance = 4.5 cm]
             (newp) {The other players turn};
         \node [cloud, left of=eval, node distance = 4 cm]
             (end) {The game is over};
@@ -83,20 +77,80 @@ We designed our programme starting by focusing on the board. The board is the ce
         \path [line] (choise) -- (distribute);
         \path [line] (distribute) -- (eval);
         \path [line] (eval) -- (newp);
-        \path [line] (newp) -- (start);
+        \path [line] (newp) |- (start);
         \path [line] (eval) -- (end);
 
-    \end{tikzpicture}
-    \caption{Flow of Awari}
-    \label{fig:gameflow}
+\end{tikzpicture}
+\caption{Flow of Awari}
+\label{fig:gameflow}
 \end{figure}
+
+\section*{Problem analysis and design}
+\subsection*{Game board and flow}
+We designed our programme starting by focusing on the game board. The board is
+the center of the game and thus the main part of our functions takes the board 
+as input and returns a new board or evaluates the pits at the board. Figure 1 
+illustrates the simple flow of the game, where the players start by viewing 
+the game board and then afterwards starts playing. As we see from Figure
+\ref{fig:gameflow}) the player returns to the printed board after every turn. Based on this, we started by creating our board. It consists of an int array with 14 
+integers whereas two are home pits and six pits for each player. As an array 
+is mutable we preferred this type to lists. 
+Moreover, the design of the game board was important to us. We wanted the 
+gui design to be nice and simple. Therefore we started by focusing on the 
+\texttt{printBoard} function. 
+\begin{wrapfigure}{r}{0.75\textwidth} %this figure will be at the right
+    \centering
+    \includegraphics{board1}
+\caption{Board of Awari}
+\end{wrapfigure}
+
+It prints the array formed as a game board. It is more clear to the player that it is a game board an not just an array of integers. All the pits are clearly divided and the home pits are situated at each end of the board starting with zero beans.
+
+
+\subsection*{The Players}
+The game is played by two players. We have created a type player consisting of a player1 and player2. It is important to distinguish between the two as they have each their home pit and each their side of the board, meaning that they have a specific index as their pits. Player1 has index 0-5 and has homepit in index 6. Player2 has index 7-12 and home pit in index 13. To solve this issue, we made a function \texttt{isHome} that was able to recognize which home pit belonged to each of the players. 
+
+We also needed to know the player's choice of pit from which he or she wanted to take beans. We decided that it should be possible for each player to enter a number on the keyboard between 1-6 and then the game had to convert it to the correct index number, instead of just letting the player know which index numbers belong to him or her. We created the function \texttt{getMove} to sove this problem. It matches the player and the input from a pressed keyboard and returns an index.
+
+\subsection*{Playing the game}
+
+Another function we focused on was the \texttt{distribute} 
+function as it distributes the beans taken from a pit and placed in the following. Thereby it updates the board and secure the flow in the game.
+\begin{wrapfigure}{r}{1\textwidth}
+\centering
+\begin{tikzpicture} [node distance = 1.5 cm, auto]
+		\node [cloud] (start) {3-3};
+        \node [cloud, below of=start] (choise) {3+1};
+        \node [cloud, below of=choise] (distribute) {3+1};
+        \node [cloud, below of=distribute] (eval) {3+1};
+		\node [cloud, right of=eval, node distance = 4 cm]
+            (newp) {if Home, try again};
+        \node [cloud, left of=eval, node distance = 4 cm]
+            (end) {If empty, check opposite};
+        % Arrows
+        \path [line] (start) -- (choise);
+        \path [line] (choise) -- (distribute);
+        \path [line] (distribute) -- (eval);
+        \path [line] (eval) -- (newp);
+        \path [line] (eval) -- (end);
+
+\end{tikzpicture}
+\caption{Distribute function}
+\label{fig:distribute}
+\end{wrapfigure}
 \newline
-
-
-
-
-
-
+\newline
+\newline
+\newline
+\newline
+\newline
+\newline
+\newline
+\newline
+\newline
+\newline
+\newline
+\section*{Appendix}
 \lstset{language=FSharp}
 \lstinputlisting{AwariLib.fs}
 \end{document}
