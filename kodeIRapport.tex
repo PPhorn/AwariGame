@@ -1,7 +1,9 @@
 \documentclass[a4paper]{report}
-
-% Pakke der specificerer margen størrelse
+\usepackage{tikz}
 \usepackage[margin=2.5cm]{geometry}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\graphicspath{{figures/}{anotherFigureDirectory/}}
 
 % Package for typesetting programs. Listings does not support fsharp, but a
 % little modification goes a long way
@@ -34,6 +36,11 @@
 
 \begin{document}
 \maketitle
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, text centered,
+    rounded corners, minimum height=2.5em]
+\tikzstyle{cloud} = [rectangle, draw, fill=white, text centered,
+    rounded corners, minimum height = 2em]
+\tikzstyle{line} = [draw, -latex]
 
 \section*{Preface}
 As a part of the Programming and Problem Solving course, we,
@@ -51,13 +58,39 @@ player who captured the most beans in his or her homepit.
 \section*{Problem description}
 We have implemented the Awari using the functional programming language F\#. We
 were given two functions as a start, a turn and a play function, and a signiture
-file with type indication for several functions. To be able to play the game
-we have been, among others, programming functions to print the board and to
-distribute the beans.
+file with type indication for several minor functions. To be able to play the
+game we have created functions to print the board, to distribute the beans, to
+check for game over etc. All the functions will be elaborated in this rapport.
 
 \section*{Problem analysis and design}
-\subsection*{printBoard}
-We designed our programme starting by focusing on the board.
+\subsection*{flow}
+We designed our programme starting by focusing on the board. The board is the center of the game and thus the main part of takes the board as input.
+
+\ref{fig:gameflow}).
+\begin{figure}
+\centering
+\begin{tikzpicture} [node distance = 1.5 cm, auto]
+		\node [cloud] (start) {The board is printed};
+        \node [cloud, below of=start] (choise) {A Player choses a pit};
+        \node [cloud, below of=choise] (distribute) {Beans are distributed};
+        \node [cloud, below of=distribute] (eval) {The result is evaluated};
+		\node [cloud, right of=eval, node distance = 4 cm]
+            (newp) {The other players turn};
+        \node [cloud, left of=eval, node distance = 4 cm]
+            (end) {The game is over};
+        % Arrows
+        \path [line] (start) -- (choise);
+        \path [line] (choise) -- (distribute);
+        \path [line] (distribute) -- (eval);
+        \path [line] (eval) -- (newp);
+        \path [line] (newp) -- (start);
+        \path [line] (eval) -- (end);
+
+    \end{tikzpicture}
+    \caption{Flow of Awari}
+    \label{fig:gameflow}
+\end{figure}
+\newline
 
 
 
@@ -66,5 +99,4 @@ We designed our programme starting by focusing on the board.
 
 \lstset{language=FSharp}
 \lstinputlisting{AwariLib.fs}
-
 \end{document}
