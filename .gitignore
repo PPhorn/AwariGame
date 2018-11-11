@@ -9,3 +9,6 @@
 *.pdf
 *.fls
 *.fdb_latexmk
+
+# Files in development
+dev_*
