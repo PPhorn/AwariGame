@@ -10,10 +10,10 @@ type board = int array
 /// more beans
 type pit = int
 
-let player1Color = 26 // blue
-let player2Color = 82 // green
-let pitNumberColor = 232 // dark grey
-let gameOverColor = 1 // red
+let player1Color = 12 // blue
+let player2Color = 10 // green
+let pitNumberColor = 8 // dark grey
+let gameOverColor = 9 // red
 
 
 (*DOCUMENTATION OF makeSpaces*)
