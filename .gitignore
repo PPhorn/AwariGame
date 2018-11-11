@@ -9,6 +9,7 @@
 *.pdf
 *.fls
 *.fdb_latexmk
+*.synctex.gz
 
 # Files in development
 dev_*
