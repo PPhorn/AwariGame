@@ -175,10 +175,11 @@ let rec getMove (b:board) (p:player) (q:string) : pit =
   let r =
       try
           let n = System.Console.ReadLine();
-          int32(n)
+          int (n)
       with
           | :? System.FormatException -> printfn "Invalid input!"
-                                         0
+                                         let n = 0
+                                         n
   match p with
   | Player1 when (1 <= r && r <= 6) -> r-1
   | Player2 when (1 <= r && r <= 6) -> r+6
