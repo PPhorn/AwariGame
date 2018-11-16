@@ -49,6 +49,13 @@ printfn "Branch 1: m = \"Player2\" c = 10 Exp. output:\"Player2\" writen in the 
 printfn "Branch 1: m = \"1\"       c = 8 Exp. output:\"1\" writen in the color grey - %b" (addColor "1" 8 = (sprintf "%s[38;5;%dm%s%s[0m" esc 8 "1" esc))
 printfn "Branch 1: m = \"Game over. The winner is Player 1\" c = 9 Exp. output:\"Game over. The winner is Player 1\" writen in the color green - %b" (addColor "Game over. The winner is Player 1" 9 = (sprintf "%s[38;5;%dm%s%s[0m" esc 9 "Game over. The winner is Player 1" esc))
 
+(*TESTING AF makeP1PitNumbers*)
+printfn "\nWhitebox testing of the function makeP1PitNumbers:"
+printfn "Branch 1: Exp. output:\"Pits     1   2   3   4   5   6\" - %b" (makeP1PitNumbers = "Pits     1   2   3   4   5   6")
+
+(*TESTING AF makeP2PitNumbers*)
+printfn "\nWhitebox testing of the function makeP2PitNumbers:"
+printfn "Branch 1: Exp. output:\"Pits     6   5   4   3   2   1\" - %b" (makeP2PitNumbers = "Pits     6   5   4   3   2   1")
 
 (*TESTING AF isHome*)
 printfn "\nWhitebox testing of the function isHome:"
