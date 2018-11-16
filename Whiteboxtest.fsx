@@ -29,7 +29,6 @@ let boardtest11 = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 0;|]
 
 let esc = string (char 0x1B)
 
-
 (*TESTING AF printBoard  INCOMPLETE! *)
 printfn "Whitebox testing of the function printBoard:"
 printfn "Branch 1: Exp. output: Board is printed:"
@@ -48,6 +47,21 @@ printfn "Branch 1: m = \"Player1\" c = 12 Exp. output:\"Player1\" writen in the 
 printfn "Branch 1: m = \"Player2\" c = 10 Exp. output:\"Player2\" writen in the color green - %b" (addColor "Player2" 10 = (sprintf "%s[38;5;%dm%s%s[0m" esc 10 "Player2" esc))
 printfn "Branch 1: m = \"1\"       c = 8 Exp. output:\"1\" writen in the color grey - %b" (addColor "1" 8 = (sprintf "%s[38;5;%dm%s%s[0m" esc 8 "1" esc))
 printfn "Branch 1: m = \"Game over. The winner is Player 1\" c = 9 Exp. output:\"Game over. The winner is Player 1\" writen in the color green - %b" (addColor "Game over. The winner is Player 1" 9 = (sprintf "%s[38;5;%dm%s%s[0m" esc 9 "Game over. The winner is Player 1" esc))
+
+(*TESTING AF makeP1Field - INCOMPLETE*)
+printfn "\nWhitebox testing of the function makeP1Field:"
+printfn "Branch 1, test 1: b = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 0;|]"
+printfn "Exp. output:\"     | 3 | 3 | 3 | 3 | 3 | 3 |\" with numbers writen in the color blue - %b" (makeP1Field boardtest10 = (sprintf "%s[38;5;%dm%s%s[0m" esc 12 "     | 3 | 3 | 3 | 3 | 3 | 3 |" esc))
+
+(*TESTING AF makeP2Field - INCOMPLETE*)
+printfn "\nWhitebox testing of the function makeP2Field:"
+printfn "Branch 1, test 1: b = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 0;|]"
+printfn "Exp. output:\"     | 3 | 3 | 3 | 3 | 3 | 3 |\" with numbers writen in the color gren - %b" (makeP2Field boardtest10 = "     | 3 | 3 | 3 | 3 | 3 | 3 |")
+
+(*TESTING AF makeHomes - INCOMPLETE*)
+printfn "\nWhitebox testing of the function makeHomes:"
+printfn "Branch 1, test 1: b = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 0;|]"
+printfn "Exp. output:\"   | 0 |                       | 0 |\" with 1 number writen in the color gren and second number written in the color blue - %b" (makeHomes boardtest10 = "   | 0 |                       | 0 |")
 
 (*TESTING AF makeP1PitNumbers*)
 printfn "\nWhitebox testing of the function makeP1PitNumbers:"

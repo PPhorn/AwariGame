@@ -18,6 +18,16 @@ val makeSpaces : i:int -> string
 
 val addColor : m:string -> c:int -> string
 
+val makeP1Field : b:board -> string
+
+val makeP2Field : b:board -> string
+
+val makeHomes : b:board -> string
+
+val makeP1PitNumbers : string
+
+val makeP2PitNumbers : string
+
 val printBoard : b:board -> unit
 
 val isHome : b:board -> p:player -> i:pit -> bool
