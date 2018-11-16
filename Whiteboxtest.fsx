@@ -14,6 +14,7 @@ printfn "Unit: play\n"
 
 
 (*Test data*)
+let boardtest0 = [|0; 0; 0; 0; 0; 0; 18; 0; 0; 0; 0; 0; 0; 18;|]
 let boardtest1 = [|0; 0; 0; 0; 0; 0; 10; 3; 3; 3; 3; 3; 3; 0;|]
 let boardtest2 = [|1; 0; 0; 0; 0; 0; 10; 3; 3; 3; 3; 3; 3; 0;|]
 let boardtest3 = [|0; 0; 3; 3; 3; 3; 10; 0; 0; 0; 0; 0; 0; 0;|]
@@ -24,6 +25,9 @@ let boardtest7 = [|0; 0; 3; 3; 0; 0; 0; 1; 0; 0; 0; 0; 0; 0;|]
 let boardtest8 = [|3; 3; 3; 0; 0; 0; 0; 3; 3; 3; 3; 3; 3; 0;|]
 let boardtest9 = [|0; 0; 3; 3; 3; 3; 0; 3; 0; 0; 0; 0; 0; 0;|]
 let boardtest10 = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 0;|]
+let boardtest11 = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 0;|]
+
+let esc = string (char 0x1B)
 
 
 (*TESTING AF printBoard  INCOMPLETE! *)
@@ -31,6 +35,19 @@ printfn "Whitebox testing of the function printBoard:"
 printfn "Branch 1: Exp. output: Board is printed:"
 printBoard boardtest2
 
+(*TESTING AF makeSpaces*)
+printfn "\nWhitebox testing of the function makeSpaces:"
+printfn "Branch 1: i = -1 Exp. output:\"\" - %b" (makeSpaces -1 = "")
+printfn "Branch 1: i = 0 Exp. output:\"\" - %b" (makeSpaces 0 = "")
+printfn "Branch 1: i = 4 Exp. output:\"    \" - %b" (makeSpaces 4 = "    ")
+printfn "Branch 1: i = 20 Exp. output:\"                    \" - %b" (makeSpaces 20 = "                    ")
+
+(*TESTING AF addColor*)
+printfn "\nWhitebox testing of the function addColor:"
+printfn "Branch 1: m = \"Player1\" c = 12 Exp. output:\"Player1\" writen in the color blue - %b" (addColor "Player1" 12 = (sprintf "%s[38;5;%dm%s%s[0m" esc 12 "Player1" esc))
+printfn "Branch 1: m = \"Player2\" c = 10 Exp. output:\"Player2\" writen in the color green - %b" (addColor "Player2" 10 = (sprintf "%s[38;5;%dm%s%s[0m" esc 10 "Player2" esc))
+printfn "Branch 1: m = \"1\"       c = 8 Exp. output:\"1\" writen in the color grey - %b" (addColor "1" 8 = (sprintf "%s[38;5;%dm%s%s[0m" esc 8 "1" esc))
+printfn "Branch 1: m = \"Game over. The winner is Player 1\" c = 9 Exp. output:\"Game over. The winner is Player 1\" writen in the color green - %b" (addColor "Game over. The winner is Player 1" 9 = (sprintf "%s[38;5;%dm%s%s[0m" esc 9 "Game over. The winner is Player 1" esc))
 
 
 (*TESTING AF isHome*)
@@ -70,9 +87,9 @@ printfn "Branch 3.0:  b = [|0; 0; 3; 3; 3; 3; 0; 3; 0; 0; 0; 0; 0; 0|] p = Playe
 printfn "Exp. output: b = [|0; 0; 0; 3; 3; 3; 0; 0; 1; 1; 0; 0; 0; 4|], finalPlayer = Player2, finalPit = 10 - %b" (distribute boardtest9 Player2 7 = ([|0; 0; 0; 3; 3; 3; 0; 0; 1; 1; 0; 0; 0; 4|], Player2, 10))
 
 (*TESTING AF getMove*)
-printfn "Whitebox testing of the function getMove:"
-printfn "Branch 1: if 1<n<6. Player1  Exp. output: 0         - %b" (getMove boardtest2 Player1 "1" = 0)
-printfn "Branch 1: if 1<n<6. Player2  Exp. output: 7         - %b" (getMove boardtest2 Player2 "1" = 7)
+//printfn "Whitebox testing of the function getMove:"
+//printfn "Branch 1: if 1<n<6. Player1  Exp. output: 0         - %b" (getMove boardtest2 Player1 "1" = 0)
+//printfn "Branch 1: if 1<n<6. Player2  Exp. output: 7         - %b" (getMove boardtest2 Player2 "1" = 7)
 //printfn "Branch 1: if 1<n<6 is empty  Exp. output: Try again - %b" (getMove boardtest2 Player1 "2" = "This pit is empty. Try again.")
 //printfn "Branch 2: else n>6           Exp. output: Try again - %b\n" (getMove boardtest2 Player1 "9" = "This is not a valid input. Try again.")
 
@@ -88,24 +105,24 @@ printfn "Whitebox testing of the function finalPitPlayer:"
 printfn "Branch 1: if i = 4 Exp. output: Player1 - %b" (finalPitPlayer 4 = Player1)
 printfn "Branch 2: if i > 6 Exp. output: Player2 - %b\n" (finalPitPlayer 7 = Player2)
 
+let turn (b : board) (p : player) (move : pit) : board =
+  let rec repeat (b: board) (p: player) (n: int) : board =
+    //printBoard b
+    let str =
+      if n = 0 then
+        sprintf "%A's move. " p
+      else
+        "Again "
+    let i = move - 1
+    let (newB, finalPitsPlayer, finalPit)= distribute b p i
+    if not (isHome b finalPitsPlayer finalPit)
+       || (isGameOver b) then
+      newB
+    else
+      repeat newB p (n + 1)
+  repeat b p 0
+
 (*TESTING AF turnr*)
 printfn "Whitebox testing of the function turn:"
-printfn "Branch 1: Player1 Exp. output: Player1 - %b" (turn boardtest10 Player1 = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 0;|])
-
-
-// let turn (b : board) (p : player) : board =
-//   let rec repeat (b: board) (p: player) (n: int) : board =
-//     printBoard b
-//     let str =
-//       if n = 0 then
-//         sprintf "%A's move. " p
-//       else
-//         "Again "
-//     let i = getMove b p str
-//     let (newB, finalPitsPlayer, finalPit)= distribute b p i
-//     if not (isHome b finalPitsPlayer finalPit)
-//        || (isGameOver b) then
-//       newB
-//     else
-//       repeat newB p (n + 1)
-//   repeat b p 0
+printfn "Branch 1: Player1, move 2 Exp. output: [|3; 0; 4; 4; 4; 3; 0; 3; 3; 3; 3; 3; 3; 0;|] - %b" (turn boardtest10 Player1 2 = [|3; 0; 4; 4; 4; 3; 0; 3; 3; 3; 3; 3; 3; 0;|])
+printfn "Branch 1: Player2, move 6 Exp. output: [|4; 4; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 0; 1;|] - %b" (turn boardtest11 Player2 13 = [|4; 4; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 0; 1;|])
