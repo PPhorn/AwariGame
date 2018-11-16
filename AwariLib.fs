@@ -23,7 +23,10 @@ let gameOverColor = 9 // red
 /// <param name="i"> number of given spaced</param>
 /// <returns>Returns a string with i number of spaces</returns>
 let makeSpaces (i: int) : string =
-  String.replicate i " "
+  if i > 0 then
+    String.replicate i " "
+  else
+    ""
 
 (*DOCUMENTATION OF addColor*)
 /// <summary>
