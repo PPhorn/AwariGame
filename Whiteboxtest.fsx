@@ -80,7 +80,7 @@ printfn "Branch 2: pit = 13. Player2. Exp. output: true  - %b" (isHome boardtest
 printfn "Branch 3: pit = 7.  Player2. Exp. output: false - %b\n" (isHome boardtest1 Player2 7 = false)
 
 (*TESTING AF isGameOver*)
-printfn "Whitebox testing of the function isGameOver:"
+printfn "\nWhitebox testing of the function isGameOver:"
 printfn "Branch 1: b.[0..5] have 0 beans.  Exp. output: true  - %b" (isGameOver boardtest1 = true)
 printfn "Branch 1: b.[0..5] have beans .   Exp. output: false - %b" (isGameOver boardtest2 = false)
 printfn "Branch 2: b.[7..12] have 0 beans. Exp. output: true  - %b" (isGameOver boardtest3 = true)
@@ -108,21 +108,70 @@ printfn "Branch 3.0:  b = [|0; 0; 3; 3; 3; 3; 0; 3; 0; 0; 0; 0; 0; 0|] p = Playe
 printfn "Exp. output: b = [|0; 0; 0; 3; 3; 3; 0; 0; 1; 1; 0; 0; 0; 4|], finalPlayer = Player2, finalPit = 10 - %b" (distribute boardtest9 Player2 7 = ([|0; 0; 0; 3; 3; 3; 0; 0; 1; 1; 0; 0; 0; 4|], Player2, 10))
 
 (*TESTING AF getMove*)
-//printfn "Whitebox testing of the function getMove:"
-//printfn "Branch 1: if 1<n<6. Player1  Exp. output: 0         - %b" (getMove boardtest2 Player1 "1" = 0)
-//printfn "Branch 1: if 1<n<6. Player2  Exp. output: 7         - %b" (getMove boardtest2 Player2 "1" = 7)
-//printfn "Branch 1: if 1<n<6 is empty  Exp. output: Try again - %b" (getMove boardtest2 Player1 "2" = "This pit is empty. Try again.")
-//printfn "Branch 2: else n>6           Exp. output: Try again - %b\n" (getMove boardtest2 Player1 "9" = "This is not a valid input. Try again.")
+let rec getMove (b:board) (p:player) (q:string) (key : string): pit =
+  printfn "%sChoose a pit between 1-6" q
+  let r =
+      try
+          let n = key
+          int (key)
+      with
+          | :? System.FormatException -> printfn "Invalid input!"
+                                         let n = 0
+                                         n
+  match p with
+  | Player1 when r = 0 -> -1
+  | Player2 when r = 0 -> -1
+  | Player1 when r > 6 -> -1
+  | Player2 when r > 6 -> -1
+  | Player1 when r < 0 -> -1
+  | Player2 when r < 0 -> -1
+  | Player1 when (b.[r-1] = 0) -> -1
+  | Player2 when (b.[r+6] = 0) -> -1
+  | Player1 when (1 <= r && r <= 6) -> r-1
+  | Player2 when (1 <= r && r <= 6) -> r+6
+  | _ -> getMove b p q key
+
+printfn "\nWhitebox testing of the function getMove:"
+printfn "Test of Player1's move and keyinput = 0:"
+printfn "Branch 1: b = [|0; 0; 0; 0; 0; 0; 0; 3; 3; 3; 3; 3; 3; 0;|] p = Player1 q = \"Player1's move. \" key = \"0\""
+printfn "Exp. output: -1 (representing a code of error) - %b" (getMove boardtest5 Player1 "Player1's move. " "0" = -1)
+printfn "\nTest of Player2's move and keyinput = 0:"
+printfn "Branch 2: b = [|0; 0; 3; 3; 3; 3; 0; 0; 0; 0; 0; 0; 0; 0;|] p = Player2 q = \"Player2's move. \" key = \"0\""
+printfn "Exp. output: -1 (representing a code of error) - %b" (getMove boardtest4 Player2 "Player2's move. " "0" = -1)
+printfn "\nTest of Player1's move and keyinput being larger than 6:"
+printfn "Branch 3: b = [|0; 0; 0; 0; 0; 0; 0; 3; 3; 3; 3; 3; 3; 0;|] p = Player1 q = \"Player1's move. \" key = \"7\""
+printfn "Exp. output: -1 (representing a code of error) - %b" (getMove boardtest5 Player1 "Player1's move. " "7" = -1)
+printfn "\nTest of Player2's move and keyinput being larger than 6:"
+printfn "Branch 4: b = [|0; 0; 3; 3; 3; 3; 0; 0; 0; 0; 0; 0; 0; 0;|] p = Player2 q = \"Player2's move. \" key = \"7\""
+printfn "Exp. output: -1 (representing a code of error) - %b" (getMove boardtest4 Player2 "Player2's move. " "7" = -1)
+printfn "\nTest of Player1's move and keyinput being a negativ integer:"
+printfn "Branch 5: b = [|0; 0; 0; 0; 0; 0; 0; 3; 3; 3; 3; 3; 3; 0;|] p = Player1 q = \"Player1's move. \" key = \"-6\""
+printfn "Exp. output: -1 (representing a code of error) - %b" (getMove boardtest5 Player1 "Player1's move. " "-6" = -1)
+printfn "\nTest of Player2's move and keyinput being a negativ integer:"
+printfn "Branch 6: b = [|0; 0; 3; 3; 3; 3; 0; 0; 0; 0; 0; 0; 0; 0;|] p = Player2 q = \"Player2's move. \" key = \"-6\""
+printfn "Exp. output: -1 (representing a code of error) - %b" (getMove boardtest4 Player2 "Player2's move. " "-6" = -1)
+printfn "\nTest of Player1's move with chosen pit empty:"
+printfn "Branch 7: b = [|0; 0; 0; 0; 0; 0; 0; 3; 3; 3; 3; 3; 3; 0;|] p = Player1 q = \"Player1's move. \" key = \"4\""
+printfn "Exp. output: -1 (representing a code of error) - %b" (getMove boardtest5 Player1 "Player1's move. " "4" = -1)
+printfn "\nTest of Player2's move with chosen pit empty:"
+printfn "Branch 8: b = [|0; 0; 3; 3; 3; 3; 0; 0; 0; 0; 0; 0; 0; 0;|] p = Player2 q = \"Player2's move. \" key = \"4\""
+printfn "Exp. output: -1 (representing a code of error) - %b" (getMove boardtest4 Player2 "Player2's move. " "4" = -1)
+printfn "\nTest of Player1's move and valid input:"
+printfn "Branch 9: b = [|0; 0; 3; 3; 3; 3; 0; 0; 0; 0; 0; 0; 0; 0;|] p = Player1 q = \"Player1's move. \" key = \"4\""
+printfn "Exp. output: 3 - %b" (getMove boardtest4 Player1 "Player1's move. " "4" = 3)
+printfn "\nTest of Player2's move with chosen pit empty:"
+printfn "Branch 10: b = [|0; 0; 0; 0; 0; 0; 0; 3; 3; 3; 3; 3; 3; 0;|] p = Player2 q = \"Player2's move. \" key = \"4\""
+printfn "Exp. output: 10 - %b" (getMove boardtest5 Player2 "Player2's move. " "4" = 10)
 
 (*TESTING AF checkOpp*)
-printfn "Whitebox testing of the function checkOpp:"
+printfn "\nWhitebox testing of the function checkOpp:"
 printfn "Branch 1: if i = 13 Exp. output: false - %b" (checkOpp boardtest2 13 = false)
 printfn "Branch 2: if i = 6  Exp. output: false - %b" (checkOpp boardtest2 6 = false)
 printfn "Branch 3: if i = 2  Exp. output: true  - %b" (checkOpp boardtest2 1 = true)
-printfn "Branch 3: if i = 1  Exp. output: false - %b\n" (checkOpp boardtest3 1 = false)
+printfn "Branch 3: if i = 1  Exp. output: false - %b" (checkOpp boardtest3 1 = false)
 
 (*TESTING AF finalPitPlayer*)
-printfn "Whitebox testing of the function finalPitPlayer:"
+printfn "\nWhitebox testing of the function finalPitPlayer:"
 printfn "Branch 1: if i = 4 Exp. output: Player1 - %b" (finalPitPlayer 4 = Player1)
 printfn "Branch 2: if i > 6 Exp. output: Player2 - %b\n" (finalPitPlayer 7 = Player2)
 
@@ -143,7 +192,7 @@ let turn (b : board) (p : player) (move : pit) : board =
       repeat newB p (n + 1)
   repeat b p 0
 
-(*TESTING AF turnr*)
-printfn "Whitebox testing of the function turn:"
+(*TESTING AF turn*)
+printfn "\nWhitebox testing of the function turn:"
 printfn "Branch 1: Player1, move 2 Exp. output: [|3; 0; 4; 4; 4; 3; 0; 3; 3; 3; 3; 3; 3; 0;|] - %b" (turn boardtest10 Player1 2 = [|3; 0; 4; 4; 4; 3; 0; 3; 3; 3; 3; 3; 3; 0;|])
 printfn "Branch 1: Player2, move 6 Exp. output: [|4; 4; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 0; 1;|] - %b" (turn boardtest11 Player2 13 = [|4; 4; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 0; 1;|])
