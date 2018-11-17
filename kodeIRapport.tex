@@ -188,6 +188,23 @@ It is called by \texttt{turn} to a given board, the finalPitsPlayer and the fina
 {\it This function gets a player's next move.}
 \lstinputlisting[language=FSharp, firstline=176, lastline=195]{AwariLib.fs}
 The function uses \texttt{System.Console.Readline} to get a keyboard input and then translates this to a pit number. It is only possible for the player to choose between 1-6. If another key is entered, the player is asked to try again. The function matches the player with the input to make sure to return a valid pit in consistence with the player.
+\\
+\section*{Testing}
+We tested the functions using the princinples of whitebox testing. We encountered difficulties with some of the functions, as they were not returning any comparable value or relied on a user input.
+We decided to alter the functions that relied on user input. All tests can be performed using the Whiteboxtest.fsx. Details on the branches will be printed when performed.
+
+\subsection*{getMove}
+getMove is one of the functions that had to be altered for proper testing. Instead of using n as the input based on a System.Console.ReadLine(), we created a new parameter called key.
+We could then use key to test different user inputs.
+\lstinputlisting[language=FSharp, firstline=110, lastline=132]{Whiteboxtest.fsx}
+
+\subsection*{turn}
+turn is the other function that had to be altered. Using the same principle we used the parameter move in place of the System.Console.ReadLine() to enable use to do the testing of the function. The function would then use move
+to return a new board.
+\lstinputlisting[language=FSharp, firstline=178, lastline=193]{Whiteboxtest.fsx}
+
+\section*{Discussion}
+
 
 \section*{Appendix}
 \lstset{language=FSharp}
