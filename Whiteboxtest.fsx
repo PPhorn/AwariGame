@@ -51,7 +51,7 @@ printfn "Branch 1: m = \"Game over. The winner is Player 1\" c = 9 Exp. output:\
 (*TESTING AF makeP1Field - INCOMPLETE*)
 printfn "\nWhitebox testing of the function makeP1Field:"
 printfn "Branch 1, test 1: b = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 0;|]"
-printfn "Exp. output:\"     | 3 | 3 | 3 | 3 | 3 | 3 |\" with numbers writen in the color blue - %b" (makeP1Field boardtest10 = (sprintf "%s[38;5;%dm%s%s[0m" esc 12 "     | 3 | 3 | 3 | 3 | 3 | 3 |" esc))
+printfn "Exp. output:\"     | 3 | 3 | 3 | 3 | 3 | 3 |\" with numbers writen in the color blue - %b" (makeP1Field boardtest10 = "     |(sprintf "%s[38;5;%dm%s%s[0m" esc 12 "3" esc)|(sprintf "%s[38;5;%dm%s%s[0m" esc 12 "3" esc)|(sprintf "%s[38;5;%dm%s%s[0m" esc 12 "3" esc))
 
 (*TESTING AF makeP2Field - INCOMPLETE*)
 printfn "\nWhitebox testing of the function makeP2Field:"
