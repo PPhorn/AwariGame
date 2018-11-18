@@ -26,6 +26,8 @@ let boardtest8 = [|3; 3; 3; 0; 0; 0; 0; 3; 3; 3; 3; 3; 3; 0;|]
 let boardtest9 = [|0; 0; 3; 3; 3; 3; 0; 3; 0; 0; 0; 0; 0; 0;|]
 let boardtest10 = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 0;|]
 let boardtest11 = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 0;|]
+let boardtest12 = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 0;|]
+let boardtest13 = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 0;|]
 
 let esc = string (char 0x1B)
 
@@ -196,3 +198,5 @@ let turn (b : board) (p : player) (move : pit) : board =
 printfn "\nWhitebox testing of the function turn:"
 printfn "Branch 1: Player1, move 2 Exp. output: [|3; 0; 4; 4; 4; 3; 0; 3; 3; 3; 3; 3; 3; 0;|] - %b" (turn boardtest10 Player1 2 = [|3; 0; 4; 4; 4; 3; 0; 3; 3; 3; 3; 3; 3; 0;|])
 printfn "Branch 1: Player2, move 6 Exp. output: [|4; 4; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 0; 1;|] - %b" (turn boardtest11 Player2 13 = [|4; 4; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 0; 1;|])
+printfn "Branch 1: Player1, move 5 Exp. output: [|3; 3; 3; 3; 0; 4; 1; 4; 3; 3; 3; 3; 3; 0;|] - %b" (turn boardtest12 Player1 5 = [|3; 3; 3; 3; 0; 4; 1; 4; 3; 3; 3; 3; 3; 0;|])
+printfn "Branch 1: Player2, move 2 Exp. output: [|3; 3; 3; 3; 3; 3; 0; 3; 0; 4; 4; 4; 3; 0;|] - %b" (turn boardtest13 Player2 9 = [|3; 3; 3; 3; 3; 3; 0; 3; 0; 4; 4; 4; 3; 0;|])
