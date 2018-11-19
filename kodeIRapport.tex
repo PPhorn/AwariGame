@@ -163,16 +163,33 @@ Figure 4 illustrates an example of the distribute function, where it takes the 3
 \subsection*{Types}
 From the assignment we've been given some essential types, which were needed to set some game-specified types used in nearly every single game function.
 
+\lstset{language=FSharp}
+\lstinputlisting{types.fsx}
+
 \subsubsection*{board}
 The type \texttt{board} takes the fsharp-type \textsl{int array} and is used to create the board of the game representing 12 general pits and 2 homepits, i.e. at set of 6 generals and 1 home per. player.
 
 \subsubsection*{player}
 The type \texttt{player} is simply created to make it possible for a function to take the type as an argument. The type has two possible versions \textsl{Player1} or \textsl{Player2}.
 
+\subsubsection*{pit}
+Finally the type \texttt{pit} is given the type integer, and was created quite like \texttt{player}, to make it possible for future functions to take a pit number, representing an index number in the given board array, as an argument.
+
 \subsection*{Globals}
 For showing the colours of players and their pits at the printed game board, we have defined \texttt{player1Color} and \texttt{player2Color}. We use \texttt{pitNumberColor} as the colour of the pits numbers, and \texttt{gameOverColor} is used when the game terminates it write Game Over.
 \\\\
 We have also defined beginning board, \texttt{board}, with the type array.
+
+\subsection*{makeSpaces}
+{\it This function is used to make making several spaces in a string more simple.}
+\lstinputlisting[language=FSharp, firstline=25, lastline=29]{AwariLib.fs}
+The function takes an integer as it sole argument, used to determine the number of spaces one wishes to implement, and returns a string of spaces corresponding to the given int input.
+
+\subsection*{addColor}
+{\it This function is used to add color to text printed in the terminal.}
+\lstinputlisting[language=FSharp, firstline=40, lastline=42]{AwariLib.fs}
+The function takes two arguments: a string and integer. The string input represents the string one wishes to apply a text color to, and the integer represents a color corresponding to a color value in the ANSI
+It uses the ANSI escape sequence 
 
 \subsection*{isGameOver}
 {\it This function is used by \texttt{turn} and \texttt{play}.}
