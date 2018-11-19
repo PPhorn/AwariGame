@@ -58,20 +58,26 @@ printfn "Branch 1: m = \"Player2\" c = 10 Exp. output:\"Player2\" writen in the 
 printfn "Branch 1: m = \"1\"       c = 8 Exp. output:\"1\" writen in the color grey - %b" (addColor "1" 8 = (sprintf "%s[38;5;%dm%s%s[0m" esc 8 "1" esc))
 printfn "Branch 1: m = \"Game over. The winner is Player 1\" c = 9 Exp. output:\"Game over. The winner is Player 1\" writen in the color green - %b" (addColor "Game over. The winner is Player 1" 9 = (sprintf "%s[38;5;%dm%s%s[0m" esc 9 "Game over. The winner is Player 1" esc))
 
-// (*TESTING AF makeP1Field - INCOMPLETE*)
-// printfn "\nWhitebox testing of the function makeP1Field:"
-// printfn "Branch 1, test 1: b = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 0;|]"
-// printfn "Exp. output:\"     | 3 | 3 | 3 | 3 | 3 | 3 |\" with numbers writen in the color blue - %b" (makeP1Field boardtest10 = "     |(sprintf "%s[38;5;%dm%s%s[0m" esc 12 "3" esc)|(sprintf "%s[38;5;%dm%s%s[0m" esc 12 "3" esc)|(sprintf "%s[38;5;%dm%s%s[0m" esc 12 "3" esc))
+(*TESTING AF makeP1Field*)
+printfn "\nWhitebox testing of the function makeP1Field:"
+printfn "Branch 1: b = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 0;|]"
+let expectedOutputP1 = "     |" + (sprintf "%s[38;5;%dm%s%s[0m" esc 12 " 3" esc) + " |" + (sprintf "%s[38;5;%dm%s%s[0m" esc 12 " 3" esc) + " |" + (sprintf "%s[38;5;%dm%s%s[0m" esc 12 " 3" esc) + " |" + (sprintf "%s[38;5;%dm%s%s[0m" esc 12 " 3" esc) + " |" + (sprintf "%s[38;5;%dm%s%s[0m" esc 12 " 3" esc) + " |" + (sprintf "%s[38;5;%dm%s%s[0m" esc 12 " 3" esc) + " |\n"
+let actualOutputP1 = makeP1Field boardtest10
+printfn "Exp. output:\"     | 3 | 3 | 3 | 3 | 3 | 3 |\" with numbers writen in the color blue - %b" (actualOutputP1 = expectedOutputP1)
 
-(*TESTING AF makeP2Field - INCOMPLETE*)
+(*TESTING AF makeP2Field*)
 printfn "\nWhitebox testing of the function makeP2Field:"
-printfn "Branch 1, test 1: b = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 0;|]"
-printfn "Exp. output:\"     | 3 | 3 | 3 | 3 | 3 | 3 |\" with numbers writen in the color gren - %b" (makeP2Field boardtest10 = "     | 3 | 3 | 3 | 3 | 3 | 3 |")
+printfn "Branch 1: b = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 0;|]"
+let expectedOutputP2 = "     |" + (sprintf "%s[38;5;%dm%s%s[0m" esc 10 " 3" esc) + " |" + (sprintf "%s[38;5;%dm%s%s[0m" esc 10 " 3" esc) + " |" + (sprintf "%s[38;5;%dm%s%s[0m" esc 10 " 3" esc) + " |" + (sprintf "%s[38;5;%dm%s%s[0m" esc 10 " 3" esc) + " |" + (sprintf "%s[38;5;%dm%s%s[0m" esc 10 " 3" esc) + " |" + (sprintf "%s[38;5;%dm%s%s[0m" esc 10 " 3" esc) + " |\n"
+let actualOutputP2 = makeP2Field boardtest10
+printfn "Exp. output:\"     | 3 | 3 | 3 | 3 | 3 | 3 |\" with numbers writen in the color blue - %b" (actualOutputP2 = expectedOutputP2)
 
-(*TESTING AF makeHomes - INCOMPLETE*)
+(*TESTING AF makeHomes*)
 printfn "\nWhitebox testing of the function makeHomes:"
-printfn "Branch 1, test 1: b = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 0;|]"
-printfn "Exp. output:\"   | 0 |                       | 0 |\" with 1 number writen in the color gren and second number written in the color blue - %b" (makeHomes boardtest10 = "   | 0 |                       | 0 |")
+printfn "Branch 1: b = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 0;|]"
+let expectedOutputHomes = "   |" + (sprintf "%s[38;5;%dm%s%s[0m" esc 10 " 0" esc) + " |" + "                       |" + (sprintf "%s[38;5;%dm%s%s[0m" esc 12 " 0" esc) + " |\n"
+let actualOutputHomes = makeHomes boardtest10
+printfn "Exp. output:\"   | 0 |                       | 0 |\" with 1 number writen in the color gren and second number written in the color blue - %b" (actualOutputHomes = expectedOutputHomes)
 
 (*TESTING AF makeP1PitNumbers*)
 printfn "\nWhitebox testing of the function makeP1PitNumbers:"
