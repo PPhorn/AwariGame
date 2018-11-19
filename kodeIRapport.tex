@@ -189,7 +189,31 @@ The function takes an integer as it sole argument, used to determine the number 
 {\it This function is used to add color to text printed in the terminal.}
 \lstinputlisting[language=FSharp, firstline=40, lastline=42]{AwariLib.fs}
 The function takes two arguments: a string and integer. The string input represents the string one wishes to apply a text color to, and the integer represents a color corresponding to a color value in the ANSI
-It uses the ANSI escape sequence 
+It uses the ANSI escape sequence which, amongst other features, can be used to control the color of the text in the terminal. By using the sequences Esc and '[', we are able to make the terminal interpret the sequence as a command instead of just characters of code. This is why we need to define the varable \texttt{esc} in the function. The function then includes a \texttt{sprintf} statement where the \texttt{esc} variable and color value is applied to the given string.
+
+\subsection*{makeP1Field \& makeP2Field}
+{\it These functions use \texttt{addColor} and \texttt{makeSpaces} and are used to created and color the pits of each player respectively.}
+\lstinputlisting[language=FSharp, firstline=51, lastline=57]{AwariLib.fs}
+\lstinputlisting[language=FSharp, firstline=66, lastline=72]{AwariLib.fs}
+The functions \texttt{makeP1Field} and \texttt{makeP2Field} takes a given board as it's sole argument and returns af string of pipes and numbers representing the pits of \texttt{Player1} and \texttt{Player2} respectively. By use of a \texttt{for}-loop, the function concatenates 6 strings made up of the value held by the given index in the board array and a pipe, used as a visual separator between each pit.
+
+
+\subsection*{makeHomes}
+{\it This function uses \texttt{addColor} and \texttt{makeSpaces} and creates the home pits of both players.}
+\lstinputlisting[language=FSharp, firstline=81, lastline=86]{AwariLib.fs}
+The function \texttt{makeHomes} takes a given board as it's argument and returns a string representing the home pits of \texttt{Player1} and \texttt{Player2}. By creating a mutable empty string we were then able to concatenates the final home pits string made up of the values held by the given indexes in the board array corresponding to the two home pits.
+
+
+\subsection*{makeP1PitNumbers \& makeP2PitNumbers}
+{\it These functions use \texttt{makeSpaces} and are used to created and color the pits of each player respectively.}
+\lstinputlisting[language=FSharp, firstline=94, lastline=97]{AwariLib.fs}
+\lstinputlisting[language=FSharp, firstline=105, lastline=108]{AwariLib.fs}
+The functions \texttt{makeP1PitNumbers} and \texttt{makeP2PitNumbers} takes no arguments and returns a string of numbers representing the number between 1 and 6 referring to the corresponding pit of each player. 
+
+\subsection*{printBoard}
+{\it This functions uses \texttt{addColor}, \texttt{makeP2PitNumbers}, \texttt{makeP2PitNumbers}, \texttt{pitNumberColor}, \texttt{player1Color}, \texttt{player2Color}, \texttt{makeP1Field}, \texttt{makeP2Field} and is used to creat the current game board.}
+\lstinputlisting[language=FSharp, firstline=126, lastline=134]{AwariLib.fs}
+The function \texttt{printBoard} takes a given board as it's sole argument and returns the current game board by use of several of the supporting functions described in the above sections. By creating a mutable empty string, as with \texttt{makeHomes}, we were able to then concatenates the fields and homes of both players, made up of the values held by each index in the board array and the injected pipes and spaces separating the pit and home pit values.
 
 \subsection*{isGameOver}
 {\it This function is used by \texttt{turn} and \texttt{play}.}
@@ -221,6 +245,11 @@ If the final pit is less or equal to 6, \texttt{finalPitPlayer} returns player 1
 {\it This function distributes the beans from the chosen pit counter clockwise}
 \lstinputlisting[language=FSharp, firstline=239, lastline=262]{AwariLib.fs}
 \texttt{distribute} is one of the key function in the game as already described. It sets a variable k equivalent to the number of beans in the chosen pit i. It then uses a while loop to distribute the number of beans k in the following pits, j, by adding one to b.[j] while taking one from k by each distribution. It then updates the finalPit to be j and checks whether there are any beans in the pit opposite the end pit. If so, the function adds them to the home pit and then updates the final pit and the opposite pit to be zero. At the end it returns a tuple containing of the updated board, the final pit player and the final pit. \texttt{distribute} is called by the \texttt{turn} function.
+
+\subsection*{playerAsString}
+{\it This function is created to convert the type \texttt{player} to the type \texttt{string}}
+\lstinputlisting[language=FSharp, firstline=265, lastline=268]{AwariLib.fs}
+The function \texttt{playerAsString} takes the type \texttt{player} as it's argument and returns a string corresponding to the relevant player input. Such that p = \texttt{Player1} returns the string "Player1" and p = \texttt{Player2} returns the string "Player2".
 
 \subsection*{turn}
 {\it The function evaluates the turn of a player}
