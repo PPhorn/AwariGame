@@ -3,7 +3,14 @@ open Awari
 (* Whitebox testing*)
 printfn "\nWhitebox Testing of Awari functions:"
 printfn "Unit: printBoard"
+printfn "Unit: makeSpaces"
 printfn "Unit: isHome"
+printfn "Unit: addColor"
+printfn "Unit: makeP1Field"
+printfn "Unit: makeP2Field"
+printfn "Unit: makeHomes"
+printfn "Unit: makeP1PitNumbers"
+printfn "Unit: makeP2PitNumbers"
 printfn "Unit: isGameOver"
 printfn "Unit: getMove"
 printfn "Unit: checkOpp"
@@ -28,6 +35,7 @@ let boardtest10 = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 0;|]
 let boardtest11 = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 0;|]
 let boardtest12 = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 0;|]
 let boardtest13 = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 0;|]
+let boardtest14 = [|0; 0; 0; 0; 0; 0; 18; 5; 0; 0; 0; 0; 8; 5;|]
 
 let esc = string (char 0x1B)
 
@@ -50,10 +58,10 @@ printfn "Branch 1: m = \"Player2\" c = 10 Exp. output:\"Player2\" writen in the 
 printfn "Branch 1: m = \"1\"       c = 8 Exp. output:\"1\" writen in the color grey - %b" (addColor "1" 8 = (sprintf "%s[38;5;%dm%s%s[0m" esc 8 "1" esc))
 printfn "Branch 1: m = \"Game over. The winner is Player 1\" c = 9 Exp. output:\"Game over. The winner is Player 1\" writen in the color green - %b" (addColor "Game over. The winner is Player 1" 9 = (sprintf "%s[38;5;%dm%s%s[0m" esc 9 "Game over. The winner is Player 1" esc))
 
-(*TESTING AF makeP1Field - INCOMPLETE*)
-printfn "\nWhitebox testing of the function makeP1Field:"
-printfn "Branch 1, test 1: b = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 0;|]"
-printfn "Exp. output:\"     | 3 | 3 | 3 | 3 | 3 | 3 |\" with numbers writen in the color blue - %b" (makeP1Field boardtest10 = "     |(sprintf "%s[38;5;%dm%s%s[0m" esc 12 "3" esc)|(sprintf "%s[38;5;%dm%s%s[0m" esc 12 "3" esc)|(sprintf "%s[38;5;%dm%s%s[0m" esc 12 "3" esc))
+// (*TESTING AF makeP1Field - INCOMPLETE*)
+// printfn "\nWhitebox testing of the function makeP1Field:"
+// printfn "Branch 1, test 1: b = [|3; 3; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 3; 0;|]"
+// printfn "Exp. output:\"     | 3 | 3 | 3 | 3 | 3 | 3 |\" with numbers writen in the color blue - %b" (makeP1Field boardtest10 = "     |(sprintf "%s[38;5;%dm%s%s[0m" esc 12 "3" esc)|(sprintf "%s[38;5;%dm%s%s[0m" esc 12 "3" esc)|(sprintf "%s[38;5;%dm%s%s[0m" esc 12 "3" esc))
 
 (*TESTING AF makeP2Field - INCOMPLETE*)
 printfn "\nWhitebox testing of the function makeP2Field:"
@@ -110,6 +118,7 @@ printfn "Branch 3.0:  b = [|0; 0; 3; 3; 3; 3; 0; 3; 0; 0; 0; 0; 0; 0|] p = Playe
 printfn "Exp. output: b = [|0; 0; 0; 3; 3; 3; 0; 0; 1; 1; 0; 0; 0; 4|], finalPlayer = Player2, finalPit = 10 - %b" (distribute boardtest9 Player2 7 = ([|0; 0; 0; 3; 3; 3; 0; 0; 1; 1; 0; 0; 0; 4|], Player2, 10))
 
 (*TESTING AF getMove*)
+(*getMove altered*)
 let rec getMove (b:board) (p:player) (q:string) (key : string): pit =
   printfn "%sChoose a pit between 1-6" q
   let r =
@@ -177,6 +186,8 @@ printfn "\nWhitebox testing of the function finalPitPlayer:"
 printfn "Branch 1: if i = 4 Exp. output: Player1 - %b" (finalPitPlayer 4 = Player1)
 printfn "Branch 2: if i > 6 Exp. output: Player2 - %b\n" (finalPitPlayer 7 = Player2)
 
+(*TESTING AF turn*)
+(*turn altered*)
 let turn (b : board) (p : player) (move : pit) : board =
   let rec repeat (b: board) (p: player) (n: int) : board =
     //printBoard b
@@ -194,9 +205,37 @@ let turn (b : board) (p : player) (move : pit) : board =
       repeat newB p (n + 1)
   repeat b p 0
 
-(*TESTING AF turn*)
 printfn "\nWhitebox testing of the function turn:"
 printfn "Branch 1: Player1, move 2 Exp. output: [|3; 0; 4; 4; 4; 3; 0; 3; 3; 3; 3; 3; 3; 0;|] - %b" (turn boardtest10 Player1 2 = [|3; 0; 4; 4; 4; 3; 0; 3; 3; 3; 3; 3; 3; 0;|])
 printfn "Branch 1: Player2, move 6 Exp. output: [|4; 4; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 0; 1;|] - %b" (turn boardtest11 Player2 13 = [|4; 4; 3; 3; 3; 3; 0; 3; 3; 3; 3; 3; 0; 1;|])
 printfn "Branch 1: Player1, move 5 Exp. output: [|3; 3; 3; 3; 0; 4; 1; 4; 3; 3; 3; 3; 3; 0;|] - %b" (turn boardtest12 Player1 5 = [|3; 3; 3; 3; 0; 4; 1; 4; 3; 3; 3; 3; 3; 0;|])
 printfn "Branch 1: Player2, move 2 Exp. output: [|3; 3; 3; 3; 3; 3; 0; 3; 0; 4; 4; 4; 3; 0;|] - %b" (turn boardtest13 Player2 9 = [|3; 3; 3; 3; 3; 3; 0; 3; 0; 4; 4; 4; 3; 0;|])
+
+
+// let rec play (b : board) (p : player) : board =
+//   if isGameOver b then
+//     // System.Console.Clear ()
+//     printBoard b
+//     if b.[6] > b.[13] then
+//       printfn "%s" (addColor "Game over. The winner is Player 1" gameOverColor)
+//     elif b.[6] = b.[13] then
+//       printfn "%s" (addColor "Game over. It's a tie" gameOverColor)
+//     else
+//       printfn "%s" (addColor "Game over. The winner is Player 2" gameOverColor)
+//     b
+//   else
+//     // let newB = turn b p
+//     let nextP =
+//       if p = Player1 then
+//         Player2
+//       else
+//         Player1
+//     play boardtest1 nextP
+//
+// (*TESTING AF play*)
+// printfn "\nWhitebox testing of the function play:"
+// printfn "Branch 1a: if isGameOver = true output: printBoard + The winner is Player 1 - %b" (play boardtest1 Player1 = [|0; 0; 0; 0; 0; 0; 10; 3; 3; 3; 3; 3; 3; 0;|])
+// printfn "Branch 1b: if isGameOver = true output: printBoard + It's a tie - %b" (play boardtest0 Player1 = [|0; 0; 0; 0; 0; 0; 18; 0; 0; 0; 0; 0; 0; 18;|])
+// printfn "Branch 1c: if isGameOver = true output: printBoard + The winner is Player 2 - %b" (play boardtest14 Player2 = [|0; 0; 0; 0; 0; 0; 18; 5; 0; 0; 0; 0; 8; 5;|])
+// printfn "Branch 2a: if isGameOver = false output: printBoard + The winner is Player 2 - %b" (play  = Player1)
+// printfn "Branch 2b: if isGameOver = false output: printBoard + The winner is Player 2 - %b" (play  = Player1)
