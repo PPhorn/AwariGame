@@ -283,7 +283,7 @@ let turn (b : board) (p : player) : board =
       if n = 0 then
         sprintf "%s's move. " (playerAsString p)
       else
-        sprintf "%s's again. " (playerAsString p)
+        sprintf "%s's move again. " (playerAsString p)
     let i = getMove b p str
     let (newB, finalPitsPlayer, finalPit)= distribute b p i
     if not (isHome b finalPitsPlayer finalPit)
