@@ -163,8 +163,7 @@ Figure 4 illustrates an example of the distribute function, where it takes the 3
 \subsection*{Types}
 From the assignment we've been given some essential types, which were needed to set some game-specified types used in nearly every single game function.
 
-\lstset{language=FSharp}
-\lstinputlisting{types.fsx}
+\lstinputlisting[language=FSharp, firstline=4, lastline=9]{AwariLib.fs}
 
 \subsubsection*{board}
 The type \texttt{board} takes the fsharp-type \textsl{int array} and is used to create the board of the game representing 12 general pits and 2 homepits, i.e. at set of 6 generals and 1 home per. player.
@@ -208,7 +207,7 @@ The function \texttt{makeHomes} takes a given board as it's argument and returns
 {\it These functions use \texttt{makeSpaces} and are used to created and color the pits of each player respectively.}
 \lstinputlisting[language=FSharp, firstline=94, lastline=97]{AwariLib.fs}
 \lstinputlisting[language=FSharp, firstline=105, lastline=108]{AwariLib.fs}
-The functions \texttt{makeP1PitNumbers} and \texttt{makeP2PitNumbers} takes no arguments and returns a string of numbers representing the number between 1 and 6 referring to the corresponding pit of each player. 
+The functions \texttt{makeP1PitNumbers} and \texttt{makeP2PitNumbers} takes no arguments and returns a string of numbers representing the number between 1 and 6 referring to the corresponding pit of each player.
 
 \subsection*{printBoard}
 {\it This functions uses \texttt{addColor}, \texttt{makeP2PitNumbers}, \texttt{makeP2PitNumbers}, \texttt{pitNumberColor}, \texttt{player1Color}, \texttt{player2Color}, \texttt{makeP1Field}, \texttt{makeHomes} \texttt{makeP2Field} and is used to creat the current game board.}
@@ -280,7 +279,7 @@ to return a new board.
 
 \section*{Discussion}
 We created Awari using only functional programming. The game fulfills the requirements. We encountered several problems regards the playability of the game. We wanted a game that could be with little to none
-instructions. We tried to make it more clear to the user which pits that were Player1s and which that were Player2s, using colors.
+instructions. We tried to make it more clear to the user which pits that were Player1's and which that were Player2's, using colors. This said, we could have done even more to make better user experince: We could have made a manual that the players could retrieve and read. We could have made a board that looked even more like a game, or we could have coded it to somewhere else than in a terminal e.g. in a browser, so that the user didn't have to compile it first. This is a rather complicated step.
 
 \newpage
 \section*{Appendix}
