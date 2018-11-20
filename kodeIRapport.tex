@@ -211,7 +211,7 @@ The function \texttt{makeHomes} takes a given board as it's argument and returns
 The functions \texttt{makeP1PitNumbers} and \texttt{makeP2PitNumbers} takes no arguments and returns a string of numbers representing the number between 1 and 6 referring to the corresponding pit of each player. 
 
 \subsection*{printBoard}
-{\it This functions uses \texttt{addColor}, \texttt{makeP2PitNumbers}, \texttt{makeP2PitNumbers}, \texttt{pitNumberColor}, \texttt{player1Color}, \texttt{player2Color}, \texttt{makeP1Field}, \texttt{makeP2Field} and is used to creat the current game board.}
+{\it This functions uses \texttt{addColor}, \texttt{makeP2PitNumbers}, \texttt{makeP2PitNumbers}, \texttt{pitNumberColor}, \texttt{player1Color}, \texttt{player2Color}, \texttt{makeP1Field}, \texttt{makeHomes} \texttt{makeP2Field} and is used to creat the current game board.}
 \lstinputlisting[language=FSharp, firstline=126, lastline=134]{AwariLib.fs}
 The function \texttt{printBoard} takes a given board as it's sole argument and returns the current game board by use of several of the supporting functions described in the above sections. By creating a mutable empty string, as with \texttt{makeHomes}, we were able to then concatenates the fields and homes of both players, made up of the values held by each index in the board array and the injected pipes and spaces separating the pit and home pit values.
 
@@ -271,16 +271,18 @@ We decided to alter the functions that relied on user input. All tests can be pe
 \subsection*{getMove}
 getMove is one of the functions that had to be altered for proper testing. Instead of using n as the input based on a System.Console.ReadLine(), we created a new parameter called key.
 We could then use key to test different user inputs.
-\lstinputlisting[language=FSharp, firstline=110, lastline=132]{Whiteboxtest.fsx}
+\lstinputlisting[language=FSharp, firstline=178, lastline=226]{Whiteboxtest.fsx}
 
 \subsection*{turn}
 turn is the other function that had to be altered. Using the same principle we used the parameter move in place of the System.Console.ReadLine() to enable use to do the testing of the function. The function would then use move
 to return a new board.
-\lstinputlisting[language=FSharp, firstline=178, lastline=193]{Whiteboxtest.fsx}
+\lstinputlisting[language=FSharp, firstline=259, lastline=271]{Whiteboxtest.fsx}
 
 \section*{Discussion}
 We created Awari using only functional programming. The game fulfills the requirements. We encountered several problems regards the playability of the game. We wanted a game that could be with little to none
 instructions. We tried to make it more clear to the user which pits that were Player1s and which that were Player2s, using colors.
+
+\newpage
 \section*{Appendix}
 \lstset{language=FSharp}
 \lstinputlisting{AwariLib.fs}
