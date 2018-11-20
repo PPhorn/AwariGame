@@ -228,7 +228,7 @@ It is called by \texttt{turn} to a given board, the finalPitsPlayer and the fina
 \subsection*{getMove}
 {\it This function gets a player's next move.}
 \lstinputlisting[language=FSharp, firstline=176, lastline=195]{AwariLib.fs}
-The function uses \texttt{System.Console.Readline} to get a keyboard input and then translates this to a pit number. It is only possible for the player to choose between 1-6. If another key is entered, the player is asked to try again. The function matches the player with the input to make sure to return a valid pit in consistence with the player.
+The function uses \texttt{System.Console.Readline} to get a keyboard input and then translates this to a pit number. It is only possible for the player to choose between 1-6. If another key is entered, the player is asked to try again. The function matches the player with the input to make sure to return a valid pit in consistence with the player. We had some issues with this function - at first it was rather simple, but it was to difficult to test and therefore we changed it a couple of times.
 
 \subsection*{checkOpp}
 {\it This function checks whether there are any beans in the opposite pit of the final pit.}
@@ -278,8 +278,7 @@ to return a new board.
 \lstinputlisting[language=FSharp, firstline=259, lastline=271]{Whiteboxtest.fsx}
 
 \section*{Discussion}
-We created Awari using only functional programming. The game fulfills the requirements. We encountered several problems regards the playability of the game. We wanted a game that could be with little to none
-instructions. We tried to make it more clear to the user which pits that were Player1's and which that were Player2's, using colors. This said, we could have done even more to make better user experince: We could have made a manual that the players could retrieve and read. We could have made a board that looked even more like a game, or we could have coded it to somewhere else than in a terminal e.g. in a browser, so that the user didn't have to compile it first. This is a rather complicated step.
+We created Awari using only functional programming. The game fulfills the requirements. We wanted a game that could be with little to none instructions. We tried to make it clear to the user which pits that were Player1's and which that were Player2's, using colors and we clearly seperated the pits from each other. This said, we could have done even more to make better user experince: We could have made a manual that the players could retrieve and read directly from the terminal. We could have made a board that looked even more like a game making the board bigger or so, or we could have coded it to something else than the terminal e.g. a browser, so that the user didn't have to compile it first. This is a rather complicated step. 
 
 \newpage
 \section*{Appendix}
