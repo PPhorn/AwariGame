@@ -231,7 +231,8 @@ let finalPitPlayer (i: pit) : player =
 /// <param name="b">The present status of the board</param>
 /// <param name="p">The player, whos beans to distribute</param>
 /// <param name="i">The regular pit to distribute</param>
-/// <returns>A new board after the beans of pit i has been distributed, and which player's pit the last bean landed in</returns>
+/// <returns>A new board after the beans of pit i has been distributed, and
+/// which player's pit the last bean landed in</returns>
 //val distribute : b:board -> p:player -> i:pit -> board * player * pit
 
 let distribute (b:board) (p:player) (i:pit) : board * player * pit =
@@ -267,7 +268,8 @@ let playerAsString (p: player) : string =
 
 (*DOCUMENTATION OF turn*)
 /// <summary>
-/// Interact with the user through getMove to perform a possibly repeated turn of a player
+/// Interact with the user through getMove to perform a possibly repeated turn
+/// of a player
 /// </summary>
 /// <param name="b">The present state of the board</param>
 /// <param name="p">The player, whose turn it is</param>
