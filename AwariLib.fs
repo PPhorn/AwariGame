@@ -2,10 +2,8 @@ module Awari
 
 /// A game is played between two players
 type player = Player1 | Player2
-
 /// A board consisting of pits.
 type board = int array
-
 /// Each player has a set of regular pits and one home pit. A pit holds zero or
 /// more beans
 type pit = int
