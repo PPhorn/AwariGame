@@ -211,7 +211,7 @@ The function \texttt{makeHomes} takes a given board as it's argument and returns
 The functions \texttt{makeP1PitNumbers} and \texttt{makeP2PitNumbers} takes no arguments and returns a string of numbers representing the number between 1 and 6 referring to the corresponding pit of each player. 
 
 \subsection*{printBoard}
-{\it This functions uses \texttt{addColor}, \texttt{makeP2PitNumbers}, \texttt{makeP2PitNumbers}, \texttt{pitNumberColor}, \texttt{player1Color}, \texttt{player2Color}, \texttt{makeP1Field}, \texttt{makeP2Field} and is used to creat the current game board.}
+{\it This functions uses \texttt{addColor}, \texttt{makeP2PitNumbers}, \texttt{makeP2PitNumbers}, \texttt{pitNumberColor}, \texttt{player1Color}, \texttt{player2Color}, \texttt{makeP1Field}, \texttt{makeHomes} \texttt{makeP2Field} and is used to creat the current game board.}
 \lstinputlisting[language=FSharp, firstline=126, lastline=134]{AwariLib.fs}
 The function \texttt{printBoard} takes a given board as it's sole argument and returns the current game board by use of several of the supporting functions described in the above sections. By creating a mutable empty string, as with \texttt{makeHomes}, we were able to then concatenates the fields and homes of both players, made up of the values held by each index in the board array and the injected pipes and spaces separating the pit and home pit values.
 

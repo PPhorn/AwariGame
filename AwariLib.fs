@@ -236,7 +236,7 @@ let finalPitPlayer (i: pit) : player =
 /// <returns>A new board after the beans of pit i has been distributed, and which player's pit the last bean landed in</returns>
 //val distribute : b:board -> p:player -> i:pit -> board * player * pit
 
-let rec distribute (b:board) (p:player) (i:pit) : board * player * pit =
+let distribute (b:board) (p:player) (i:pit) : board * player * pit =
   let mutable j = i + 1
   ///Let k be the number of pits to distribute
   let mutable k = b.[i]
